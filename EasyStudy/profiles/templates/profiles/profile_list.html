@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}
+All profiles
+{% endblock title %}
+
+{% block content %}
+<ul>
+    {% for item in query_set %}
+    <li>{{ item }}</li>
+    {% endfor %}
+</ul>
+{% endblock content %}

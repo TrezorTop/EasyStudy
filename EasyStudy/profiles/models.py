@@ -2,6 +2,34 @@ from django.db import models
 from django.contrib.auth.models import User
 from .utils import get_random_code
 from django.template.defaultfilters import slugify
+from django.db.models import Q
+
+
+class ProfileManager(models.Manager):
+
+    def get_all_profiles_to_invite(self, sender):
+        profiles = Profile.objects.all().exclude(user=sender)
+        profile = Profile.objects.get(user=sender)
+        query_set = Relationship.objects.filter(Q(sender=profile) | Q(receiver=profile))
+        print(query_set)
+        print("------------")
+
+        accepted = set([])
+        for relation in query_set:
+            if relation.status == 'accepted':
+                accepted.add(relation.receiver)
+                accepted.add(relation.sender)
+        print(accepted)
+        print("------------")
+
+        available = [profile for profile in profiles if profile not in accepted]
+        print(available)
+        print("------------")
+        return available
+
+    def get_all_profiles(self, me):
+        profiles = Profile.objects.all().exclude(user=me)
+        return profiles
 
 
 class Profile(models.Model):
@@ -16,6 +44,8 @@ class Profile(models.Model):
     slug = models.SlugField(unique=True, blank=True)
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
+
+    objects = ProfileManager()
 
     def get_friends(self):
         return self.friends.all()
@@ -67,12 +97,20 @@ STATUS_CHOICES = (
 )
 
 
+class RelationshipManager(models.Manager):
+    def invitations_received(self, receiver):
+        query_set = Relationship.objects.filter(receiver=receiver, status='send')
+        return query_set
+
+
 class Relationship(models.Model):
     sender = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='sender')
     receiver = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='receiver')
     status = models.CharField(max_length=8, choices=STATUS_CHOICES)
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
+
+    objects = RelationshipManager()
 
     def __str__(self):
         return f"{self.sender} - {self.receiver} - {self.status}"
