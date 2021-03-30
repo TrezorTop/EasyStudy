@@ -5,9 +5,54 @@ All profiles
 {% endblock title %}
 
 {% block content %}
-<ul>
-    {% for item in query_set %}
-    <li>{{ item }}</li>
-    {% endfor %}
-</ul>
+
+{% if is_empty %}
+<h2>No profiles to interact with</h2>
+{% endif %}
+
+{% for object in query_set %}
+<div class="ui segment">
+    <div class="ui grid">
+        <div class="row">
+            <div class="three wide column">
+                <img class="ui small circular image" src="{{ object.avatar.url }}" alt="">
+            </div>
+            <div class="thirteen wide column">
+                <h3>{{ object.user }}</h3>
+                <p> {{ object.bio }} </p>
+                <button class="ui primary button">To profile</button>
+
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="profile_pk" value="{{ object.pk }}">
+                    {% if object.user not in relation_receiver and object.user not in relation_sender %}
+                    <button type="submit" class="ui positive basic button"><i class="plus square icon"></i>
+                        Add to friends list
+                    </button>
+                    {% endif %}
+
+                </form>
+
+                {% if object.user in relation_receiver and request.user not in object.friends.all %}
+                <button type="submit" class="ui disabled button"><i class="user icon"></i>
+                    Waiting for approval
+                </button>
+                {% endif %}
+
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="profile_pk" value="{{ object.pk }}">
+                    {% if request.user in object.friends.all %}
+                    <button type="submit" class="ui negative basic button"><i class="minus square icon"></i>
+                        Remove from friends list
+                    </button>
+                    {% endif %}
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
 {% endblock content %}
