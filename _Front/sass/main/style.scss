@@ -1,0 +1,101 @@
+@use "../services/services";
+
+
+main {
+  padding: 5rem 1%;
+
+  display: grid;
+  grid-template-columns: 1fr 0.9fr;
+  gap: 15%;
+
+  .info {
+    h1 {
+      font-size: 3rem;
+      text-transform: uppercase;
+      color: white;
+      font-weight: lighter;
+    }
+
+    p {
+      font-size: 1.3rem;
+      color: white;
+      font-weight: lighter;
+    }
+  }
+
+  .card {
+    background-color: white;
+    padding: 15% 13%;
+    border-radius: services.$border-radius;
+
+    form {
+      .description {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+
+        h2 {
+          text-transform: uppercase;
+          font-size: 1.3rem;
+          color: services.$textPrimary;
+        }
+
+        p {
+          margin: 2rem 0;
+          color: services.$textParagraph;
+        }
+      }
+
+      .DataInput {
+        .data {
+          display: flex;
+          flex-direction: column;
+          gap: .9rem;
+
+          input {
+            @extend %Input;
+            transition: box-shadow services.$inputTransition;
+
+            &:focus {
+              -webkit-box-shadow: 0 10px 52px 0 rgba(gray, .4);
+              box-shadow: 0 10px 52px 0 rgba(gray, .4);
+            }
+          }
+        }
+
+        .settings {
+          margin: 1.4rem 0;
+          display: flex;
+          justify-content: space-between;
+
+          a {
+            font-size: .8rem;
+            color: services.$accent;
+
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+
+        .submit {
+          button {
+            width: 100%;
+            border: none;
+            text-transform: uppercase;
+
+            @extend %GreenButton;
+
+            padding: 4% 0;
+            background: rgb(92, 88, 220);
+            background: linear-gradient(180deg, rgba(92, 88, 220, 1) 0%, rgba(71, 67, 216, 1) 100%);
+
+            &:hover {
+              background: linear-gradient(180deg, rgba(71, 67, 216, 1) 0%, rgba(71, 67, 216, 1) 100%);
+            }
+          }
+        }
+      }
+    }
+  }
+}
