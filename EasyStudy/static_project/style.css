@@ -16,6 +16,10 @@ body {
     margin-top: 5px !important;
 }
 
+.w-big {
+    width: 225px !important;
+}
+
 .mymodal {
     height: 300px !important;
     top: 200px !important;
