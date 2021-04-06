@@ -1,4 +1,4 @@
-@use "../services/services";
+@use "../../services/services";
 
 
 header {
@@ -30,29 +30,17 @@ header {
     }
 
     .StandardButton {
-      background-color: transparent;
-      font-size: .7rem;
-      color: white;
-      padding: 0.5rem 1.1rem;
-      border-radius: services.$border-radius;
-      transition: background-color services.$transition;
-
-
-      &:hover {
-        cursor: pointer;
-        background-color: rgba(gray, .4),;
-      }
+      @include services.StandartButton;
     }
 
     #CreateAccount {
       margin-left: 0.833rem;
-      @extend %GreenButton;
+      @include services.GreenButton;
     }
   }
 
   hr {
     border: none;
-    color: red;
     background-color: rgba(white, .1);
     height: 2px;
   }

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../node_modules/normalize.css/normalize.css">
+    <link rel="stylesheet" href="../sass/Templates/Footer/style.css">
+    <link rel="stylesheet" href="../sass/Templates/Header/style.css">
+    <link rel="stylesheet" href="../sass/Posts/style.css">
+    <link rel="stylesheet" href="../FontAwesome/webfonts/FontAwesome.min.css">
+    <script src="../w3.js"></script>
+</head>
+<body>
+    <div w3-include-html="Templates/Header.html"></div>
+
+    <main class="container FillScreen">
+        <section class="PostList">
+            <article class="Post">
+                <div class="Top Padding">
+                    <div class="ProfileInfo">
+                        <i class="fas fa-user"></i>
+                        <div class="UserData">
+                            <h3 class="SmallFont">Catalan</h3>
+                            <span class="SmallFont">-</span>
+                            <p class="SmallFont">3 days, 2 hours ago</p>
+                        </div>
+                    </div>
+                    <div class="Actions">
+                        <ul>
+                            <li><a href="#">Update</a></li>
+                            <li><a href="#">Delete</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="Middle Padding">
+                    <p class="Content">Test</p>
+                    <div class="SocialActions">
+                        <div class="Comments">
+                            <i class="fas fa-comment"></i>
+                            <p>0 comments</p>
+                        </div>
+                        <div class="Likes">
+                            <i class="fas fa-thumbs-up"></i>
+                            <p>0 likes</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="Comments Padding">
+                    <button>Comments</button>
+                    <article>
+                        <div class="ProfileInfo">
+                            <i class="fas fa-user"></i>
+                            <div class="UserData">
+                                <h3 class="SmallFont">Catalan</h3>
+                                <span class="SmallFont">-</span>
+                                <p class="SmallFont">3 days, 2 hours ago</p>
+                            </div>
+                        </div>
+                        <div class="test">
+                            <p>Tested comment</p>
+                        </div>
+                    </article>
+                </div>
+                <form class="Padding" action="" id="SendComment">
+                    <input type="text" placeholder="Add a comment...">
+                    <div>
+                        <button type="submit">Send</button>
+                        <p>April 2, 2021, 8 p.m.</p>
+                    </div>
+                </form>
+            </article>
+        </section>
+        <section class="postMake">
+            <form action="">
+                <article>
+                    <label for="Content">
+                        <p>Content</p>
+                        <textarea type="text" id="Content"> </textarea>
+                    </label>
+                </article>
+                <article>
+                    <label for="File">
+                        <p>Image</p>
+                        <input type="file" id="File">
+                    </label>
+                </article>
+                <button type="submit">Send</button>
+            </form>
+        </section>
+    </main>
+
+    <div w3-include-html="Templates/Footer.html"></div>
+    <script>
+        w3.includeHTML();
+    </script>
+</body>
+</html>

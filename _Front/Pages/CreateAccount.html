@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <title>Create a new account</title>
     <link rel="stylesheet" href="../node_modules/normalize.css/normalize.css">
-    <link rel="stylesheet" href="../sass/Footer/style.css">
-    <link rel="stylesheet" href="../sass/Login_Create-navbar/style.css">
+    <link rel="stylesheet" href="../sass/Templates/Footer/style.css">
+    <link rel="stylesheet" href="../sass/Templates/Header/style.css">
     <link rel="stylesheet" href="../sass/CreateAccount/style.css">
     <script src="../w3.js"></script>
 </head>
 <body>
-    <div w3-include-html="Login_Create-navbar.html"></div>
+    <div w3-include-html="Templates/Header.html"></div>
+
     <main class="container FillScreen">
         <section>
             <form action="">
@@ -100,7 +101,8 @@
             </form>
         </section>
     </main>
-    <div w3-include-html="Footer.html"></div>
+
+    <div w3-include-html="Templates/Footer.html"></div>
     <script>
         w3.includeHTML();
     </script>

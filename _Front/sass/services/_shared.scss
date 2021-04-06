@@ -26,7 +26,7 @@ body {
   flex-grow: 1;
 }
 
-.checkbox {
+@mixin checkbox {
   label {
     display: inline-flex !important;
     align-items: center;
@@ -75,7 +75,22 @@ body {
   }
 }
 
-%GreenButton {
+@mixin StandartButton {
+  background-color: transparent;
+  font-size: .7rem;
+  color: white;
+  padding: 0.5rem 1.1rem;
+  border-radius: $border-radius;
+  transition: background-color $transition;
+
+
+  &:hover {
+    cursor: pointer;
+    background-color: rgba(gray, .4);
+  }
+}
+
+@mixin GreenButton {
   font-size: .8rem;
   color: white;
   padding: 0.5rem 1.1rem;
@@ -90,7 +105,7 @@ body {
   }
 }
 
-%Input {
+@mixin Input {
   width: 100%;
   padding: .8rem;
   background-color: $input-bgc;

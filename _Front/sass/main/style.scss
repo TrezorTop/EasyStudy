@@ -53,7 +53,7 @@ main {
           gap: .9rem;
 
           input {
-            @extend %Input;
+            @include services.Input;
             transition: box-shadow services.$inputTransition;
 
             &:focus {
@@ -84,7 +84,7 @@ main {
             border: none;
             text-transform: uppercase;
 
-            @extend %GreenButton;
+            @include services.GreenButton;
 
             padding: 4% 0;
             background: rgb(92, 88, 220);

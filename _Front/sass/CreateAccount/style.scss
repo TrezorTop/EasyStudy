@@ -45,7 +45,7 @@ main {
             }
 
             input {
-              @extend %Input;
+              @include services.Input;
               transition: border services.$inputTransition;
 
               &:focus {
@@ -65,7 +65,7 @@ main {
             button {
               border: none;
               justify-self: start;
-              @extend %GreenButton;
+              @include services.GreenButton;
               padding: 2% 2%;
               text-transform: uppercase;
             }
