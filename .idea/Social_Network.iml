@@ -8,6 +8,7 @@
     <orderEntry type="library" name="semantic-ui" level="application" />
   </component>
   <component name="TemplatesService">
+    <option name="TEMPLATE_CONFIGURATION" value="Django" />
     <option name="TEMPLATE_FOLDERS">
       <list>
         <option value="$MODULE_DIR$/venv/Lib/site-packages/django/forms/templates" />
