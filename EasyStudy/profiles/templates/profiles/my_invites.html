@@ -1,13 +1,46 @@
 {% extends 'base.html' %}
 
 {% block title %}
-My invites
+    My invites
 {% endblock title %}
 
 {% block content %}
-<ul>
-    {% for item in query_set %}
-    <li>{{ item }}</li>
+
+    {% if is_empty %}
+        <h2>No invitations.. </h2>
+    {% endif %}
+
+    {% for object in query_set %}
+        <div class="ui segment">
+            <div class="ui grid">
+                <div class="row">
+                    <div class="three wide column">
+                        <img src="{{ object.avatar.url }}" alt="avatar" class="ui small circular image">
+                    </div>
+                    <div class="thirteen wide column">
+                        <h3>{{ object.user }}</h3>
+                        <p>{{ object.bio }}</p>
+                        <a href="">
+                            <button class="ui primary button w-big mb-7">To profile</button>
+                        </a>
+                        <form action="{% url 'profiles:accept_invite' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="profile_pk" value={{ object.pk }}>
+                            <button type="submit" class="ui positive basic button w-big mb-7">
+                                <i class="check icon"></i> Accept  invite
+                            </button>
+                        </form>
+
+                        <form action="{% url 'profiles:reject_invite' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="profile_pk" value={{ object.pk }}>
+                            <button type="submit" class="ui negative basic button w-big mb-7">
+                                <i class="close icon"></i> Reject invite
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     {% endfor %}
-</ul>
 {% endblock content %}
