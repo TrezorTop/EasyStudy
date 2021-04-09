@@ -1,0 +1,51 @@
+@use "../services/services";
+
+
+.PostMake {
+  form {
+    padding: 5%;
+
+    article {
+      & > label:first-child {
+        textarea {
+          width: 100%;
+          margin-top: 2%;
+          border-radius: services.$border-radius;
+          resize: vertical;
+          padding: 4% 2%;
+          transition: border services.$transition;
+
+          &:focus {
+            border: 1px solid services.$accent;
+            outline: none;
+          }
+        }
+      }
+
+      & > label:last-child {
+        p {
+          margin: 5% 0 2%;
+        }
+
+        input {
+          border: 1px solid black;
+          border-radius: services.$border-radius;
+          padding: 3%;
+          font-size: .9rem;
+          width: 100%;
+
+          &:focus {
+            border: 1px solid services.$accent;
+            outline: none;
+          }
+        }
+      }
+    }
+
+    button {
+      @include services.GreenButton;
+      border: none;
+      margin-top: 3%;
+    }
+  }
+}

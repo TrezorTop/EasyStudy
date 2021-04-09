@@ -15,6 +15,12 @@ body {
   min-height: 100vh;
 }
 
+
+main {
+  padding: 6.5% 1%;
+}
+
+
 .container {
   max-width: 1200px;
   width: 100%;
@@ -22,11 +28,13 @@ body {
   margin: 0 auto;
 }
 
+
 .FillScreen {
   flex-grow: 1;
 }
 
-@mixin checkbox {
+
+.checkbox {
   label {
     display: inline-flex !important;
     align-items: center;
@@ -75,7 +83,8 @@ body {
   }
 }
 
-@mixin StandartButton {
+
+@mixin StandardButton {
   background-color: transparent;
   font-size: .7rem;
   color: white;
@@ -89,6 +98,7 @@ body {
     background-color: rgba(gray, .4);
   }
 }
+
 
 @mixin GreenButton {
   font-size: .8rem;
@@ -104,6 +114,36 @@ body {
     background: linear-gradient(180deg, rgba(6, 176, 109, 1) 0%, rgba(6, 176, 109, 1) 100%);
   }
 }
+
+
+@mixin RedButton {
+  @include GreenButton;
+  background: rgb(220,7,7,1);
+  background: linear-gradient(180deg, rgba(220,7,7,1) 0%, rgba(200,6,6,1) 100%);
+
+  &:hover {
+    background: rgb(220,7,7,1);
+    background: linear-gradient(180deg, rgba(200,6,6,1) 0%, rgba(200,6,6,1) 100%);
+  }
+}
+
+
+@mixin AccentButton {
+  width: 100%;
+  border: none;
+  text-transform: uppercase;
+
+  @include GreenButton;
+
+  padding: 4% 0;
+  background: rgb(92, 88, 220);
+  background: linear-gradient(180deg, rgba(92, 88, 220, 1) 0%, rgba(71, 67, 216, 1) 100%);
+
+  &:hover {
+    background: linear-gradient(180deg, rgba(71, 67, 216, 1) 0%, rgba(71, 67, 216, 1) 100%);
+  }
+}
+
 
 @mixin Input {
   width: 100%;

@@ -31,19 +31,17 @@
 }
 
 
+@import "Card";
+
+
 main {
   display: grid;
-  grid-template-columns: 2fr .5fr;
+  grid-template-columns: 2fr 1fr;
   gap: 5%;
   padding: 2% 0;
 
   .PostList {
     .Post {
-      background-color: white;
-      border-radius: services.$border-radius;
-      -webkit-box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
-      box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
-
       .Padding {
         padding: 2% !important;
       }
@@ -63,7 +61,7 @@ main {
 
             li {
               a {
-                @include services.StandartButton;
+                @include services.StandardButton;
                 font-size: .9rem;
                 color: services.$textParagraph;
                 transition: inherit, color services.$transition;
@@ -117,7 +115,7 @@ main {
             }
 
             i {
-              @include services.StandartButton;
+              @include services.StandardButton;
               font-size: .9rem;
               color: services.$textParagraph;
               transition: inherit, color services.$transition;
@@ -133,7 +131,7 @@ main {
 
       .Comments {
         button {
-          @include services.StandartButton;
+          @include services.StandardButton;
           font-size: .9rem;
           color: services.$textParagraph;
           transition: inherit, color services.$transition;
@@ -200,4 +198,6 @@ main {
       }
     }
   }
+
+  @import "PostMake";
 }
