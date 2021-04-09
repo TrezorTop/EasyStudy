@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="../node_modules/normalize.css/normalize.css">
-    <link rel="stylesheet" href="../sass/Templates/Footer/style.css">
-    <link rel="stylesheet" href="../sass/Templates/Header/style.css">
-    <link rel="stylesheet" href="../sass/Posts/style.css">
-    <link rel="stylesheet" href="../FontAwesome/webfonts/FontAwesome.min.css">
-    <script src="../w3.js"></script>
+    <link rel="stylesheet" href="/Social_Network_Python_Django/_Front/node_modules/normalize.css/normalize.css">
+    <link rel="stylesheet" href="/Social_Network_Python_Django/_Front/sass/Templates/Footer/style.css">
+    <link rel="stylesheet" href="/Social_Network_Python_Django/_Front/sass/Templates/Header/style.css">
+    <link rel="stylesheet" href="/Social_Network_Python_Django/_Front/sass/Posts/main.css">
+    <link rel="stylesheet" href="/Social_Network_Python_Django/_Front/FontAwesome/webfonts/FontAwesome.min.css">
+    <script src="/Social_Network_Python_Django/_Front/w3.js"></script>
 </head>
 <body>
-    <div w3-include-html="Templates/Header.html"></div>
+    <div w3-include-html="/Social_Network_Python_Django/_Front/Pages/Templates/Header.html"></div>
 
     <main class="container FillScreen">
-        <section class="PostList">
+        <section class="PostList Card">
             <article class="Post">
                 <div class="Top Padding">
                     <div class="ProfileInfo">
@@ -27,8 +27,8 @@
                     </div>
                     <div class="Actions">
                         <ul>
-                            <li><a href="#">Update</a></li>
-                            <li><a href="#">Delete</a></li>
+                            <li><a href="Update.html">Update</a></li>
+                            <li><a href="Delete.html">Delete</a></li>
                         </ul>
                     </div>
                 </div>
@@ -70,17 +70,15 @@
                 </form>
             </article>
         </section>
-        <section class="postMake">
-            <form action="">
+        <section class="PostMake">
+            <form action="" class="Card">
                 <article>
                     <label for="Content">
-                        <p>Content</p>
+                        <p>Content:</p>
                         <textarea type="text" id="Content"> </textarea>
                     </label>
-                </article>
-                <article>
                     <label for="File">
-                        <p>Image</p>
+                        <p>Image:</p>
                         <input type="file" id="File">
                     </label>
                 </article>
@@ -89,7 +87,7 @@
         </section>
     </main>
 
-    <div w3-include-html="Templates/Footer.html"></div>
+    <div w3-include-html="/Social_Network_Python_Django/_Front/Pages/Templates/Footer.html"></div>
     <script>
         w3.includeHTML();
     </script>

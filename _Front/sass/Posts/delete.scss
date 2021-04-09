@@ -1,0 +1,40 @@
+@use "../services/services";
+
+@import "Card";
+
+
+main {
+  @import "PostMake";
+  .PostMake {
+    form {
+      padding: 2%;
+
+      h1 {
+        margin-bottom: 3%;
+        text-transform: uppercase;
+        font-size: 1.3rem;
+      }
+
+      article {
+        & > label:first-child {
+          textarea {
+            padding: 2% 1.5%;
+          }
+        }
+        & > label:last-child {
+          p {
+            margin-top: 3%;
+          }
+          input {
+            padding: 2%;
+          }
+        }
+      }
+
+      button {
+        @include services.RedButton;
+        padding: 0.8rem 1.4rem;
+      }
+    }
+  }
+}

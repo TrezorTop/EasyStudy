@@ -2,8 +2,6 @@
 
 
 main {
-  padding: 5rem 1%;
-
   display: grid;
   grid-template-columns: 1fr 0.9fr;
   gap: 15%;
@@ -41,7 +39,7 @@ main {
         }
 
         p {
-          margin: 2rem 0;
+          margin: 10% 0;
           color: services.$textParagraph;
         }
       }
@@ -64,7 +62,7 @@ main {
         }
 
         .settings {
-          margin: 1.4rem 0;
+          margin: 7% 0;
           display: flex;
           justify-content: space-between;
 
@@ -80,19 +78,7 @@ main {
 
         .submit {
           button {
-            width: 100%;
-            border: none;
-            text-transform: uppercase;
-
-            @include services.GreenButton;
-
-            padding: 4% 0;
-            background: rgb(92, 88, 220);
-            background: linear-gradient(180deg, rgba(92, 88, 220, 1) 0%, rgba(71, 67, 216, 1) 100%);
-
-            &:hover {
-              background: linear-gradient(180deg, rgba(71, 67, 216, 1) 0%, rgba(71, 67, 216, 1) 100%);
-            }
+            @include services.AccentButton;
           }
         }
       }
