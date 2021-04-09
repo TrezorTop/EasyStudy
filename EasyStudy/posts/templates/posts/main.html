@@ -38,18 +38,27 @@
                     <div class="content">
                         <p> {{ object.content }} </p>
                         <div class="right floated">
-                            <form action="{% url 'posts:like_post_view' %}" method="POST">
+                            <form class="like-form" id="{{ object.id }}" action="{% url 'posts:like_post_view' %}"
+                                  method="POST">
                                 {% csrf_token %}
                                 <input type="hidden" name="post_id" value={{ object.id }}>
-                                {% if profile not in object.liked.all %}
-                                    <button type="submit" class="ui bwhite-sm button"><i class="thumbs up icon"></i>
-                                    </button>
-                                    <span> {{ object.num_likes }} likes</span>
-                                {% else %}
-                                    <button type="submit" class="ui bwhite-sm button"><i class="thumbs down icon"></i>
-                                    </button>
-                                    <span> {{ object.num_likes }} likes</span>
-                                {% endif %}
+                                <button type="submit"
+                                        data-is-liked="{% if profile in object.liked.all %}true{% else %}false{% endif %}"
+                                        class="ui button like-btn{{ object.id }}">
+                                    {% if profile not in object.liked.all %}
+                                        Like
+                                    {% else %}
+                                        Unlike
+                                    {% endif %}
+                                </button>
+                                <div class="ui grid">
+                                    <div class="column">
+                                        <div class="like-count{{ object.id }}">{{ object.num_likes }}</div>
+                                    </div>
+                                    <div class="column">
+                                        likes
+                                    </div>
+                                </div>
                             </form>
                         </div>
                         <i class="comment icon"></i>
@@ -110,6 +119,41 @@
             $(".comment_btn").click(function () {
                 $(this).next(".comment-box").toggle("normal");
             });
+
+            $('.like-form').submit(function (event) {
+                event.preventDefault()
+
+                let postId = $(this).attr('id');
+                let isLiked = $(`.like-btn${postId}`).attr('data-is-liked')
+                let url = $(this).attr('action')
+                let likes = parseInt($(`.like-count${postId}`).text())
+
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: {
+                        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                        'post_id': postId,
+                    },
+                    success: function (response) {
+                        let likeButton = $(`.like-btn${postId}`)
+
+                        if (isLiked === 'true') {
+                            likeButton.text('Like');
+                            likeButton.attr('data-is-liked', 'false');
+                            $(`.like-count${postId}`).text(likes - 1);
+                        } else {
+                            likeButton.text('Unlike');
+                            likeButton.attr('data-is-liked', 'true');
+                            $(`.like-count${postId}`).text(likes + 1);
+                        }
+                    },
+                    error: function (response) {
+                        console.log('error', response)
+                    }
+                })
+
+            })
         });
     </script>
 
