@@ -20,7 +20,9 @@
                     <div class="thirteen wide column">
                         <h3>{{ object.user }}</h3>
                         <p> {{ object.bio }} </p>
-                        <button class="ui primary button mb-7 w-big">To profile</button>
+                        <a href="{{ object.get_absolute_url }}">
+                            <button class="ui primary button mb-7 w-big">To profile</button>
+                        </a>
                         <br>
 
                         {% if object.user not in relation_receiver and object.user not in relation_sender %}
