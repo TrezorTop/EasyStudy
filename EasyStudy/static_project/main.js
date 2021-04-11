@@ -3,4 +3,5 @@ $(document).ready(function () {
         $('.ui.modal').modal('show');
         console.log('test')
     })
+    $(".ui.dropdown").dropdown()
 })
