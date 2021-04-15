@@ -12,15 +12,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 @login_required
 def post_comment_create_and_list_view(request):
-    query_set = Post.objects.all()
     profile = Profile.objects.get(user=request.user)
+    query_set = Post.objects.filter(author=profile)
 
     # initials
     post_form = PostModelForm()
     comment_form = CommentModelForm()
     post_added = False
-
-    profile = Profile.objects.get(user=request.user)
 
     if 'submit_post_form' in request.POST:
         print(request.POST)

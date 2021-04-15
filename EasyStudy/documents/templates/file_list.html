@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% url 'file_upload' %}
+
+{% block title %}
+    File list
+{% endblock title %}
+
+{% block content %}
+    <h2>File list</h2>
+    <div class="ui cards">
+
+
+        <div class="ui card">
+            <div class="content">
+                <div class="center aligned">
+                    <button class="massive ui button">
+                        <a href="{% url 'documents:file_upload' %}">Add a new one</a>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        {% for file in files %}
+
+            <div class="card">
+                <div class="content">
+                    <div class="header">{{ file.title }}</div>
+                    <div class="meta">{{ file.author }}</div>
+                    <div class="description">
+                        <a href="{{ file.user_file.url }}">Download this file</a>
+                    </div>
+                </div>
+            </div>
+
+        {% endfor %}
+    </div>
+
+{% endblock %}

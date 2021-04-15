@@ -16,7 +16,7 @@ app_name = 'profiles'
 
 urlpatterns = [
     path('', ProfileListView.as_view(), name='all_profiles_view'),
-    path('myprofile/', my_profile_view, name='my_profile_view'),
+    path('my_profile/', my_profile_view, name='my_profile_view'),
     path('my_invites/', invites_received_view, name='my_invites_view'),
     path('to_invite/', invite_profiles_list_view, name='invite_profiles_list_view'),
     path('send_invite/', send_invitation, name='send_invite'),

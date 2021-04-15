@@ -4,6 +4,7 @@
 {% url 'profiles:my_invites_view' as path_to_my_invites %}
 {% url 'profiles:invite_profiles_list_view' as path_to_invites %}
 {% url 'profiles:all_profiles_view' as path_to_all_profiles %}
+{% url 'documents:file_list' as path_to_file_list %}
 
 
 <div class="ui inverted menu nav mb-7">
@@ -14,6 +15,11 @@
         {% if request.user.is_authenticated %}
             <a href="{{ path_to_posts }}" class="{% if request.path == path_to_posts %}active{% endif %}  item">
                 Board
+            </a>
+        {% endif %}
+        {% if request.user.is_authenticated %}
+            <a href="{{ path_to_file_list }}" class="{% if request.path == path_to_file_list %}active{% endif %}  item">
+                My documents
             </a>
         {% endif %}
 
@@ -48,7 +54,6 @@
                         </div>
                     </form>
                 </div>
-
                 <a href="{{ path_to_my_profile }}"
                    class="{% if request.path == path_to_my_profile %}active{% endif %} item">
                     <img src="{{ picture.url }}" class="ui avatar image" alt="user picture">&nbsp;

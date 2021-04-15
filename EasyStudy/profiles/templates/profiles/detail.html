@@ -38,40 +38,142 @@
                     </div>
                 </div>
 
-                {% if object.user not in relation_receiver and object.user not in relation_sender %}
-                    <form action="{% url 'profiles:send_invite' %}" method="POST">
-                        {% csrf_token %}
-                        <input type="hidden" name="profile_pk" value="{{ object.pk }}">
-                        <button type="submit" class="ui positive basic button mb-7 w-big"><i
-                                class="plus square icon"></i>
-                            Add to friends list
-                        </button>
-                    </form>
-                {% endif %}
+                {% ifnotequal request.user object.user %}
 
-                {% if object.user in relation_receiver and request.user not in object.friends.all %}
-                    <button type="submit" class="ui disabled button mb-7 w-big"><i class="user icon"></i>
-                        Waiting for approval
-                    </button>
-                {% endif %}
+                    {% if object.user not in relation_receiver and object.user not in relation_sender %}
+                        <form action="{% url 'profiles:send_invite' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="profile_pk" value="{{ object.pk }}">
+                            <button type="submit" class="ui positive basic button mb-7 w-big"><i
+                                    class="plus square icon"></i>
+                                Add to friends list
+                            </button>
+                        </form>
+                    {% endif %}
 
-                {% if request.user in object.friends.all %}
-                    <form action="{% url 'profiles:remove_friend' %}" method="POST">
-                        {% csrf_token %}
-                        <input type="hidden" name="profile_pk" value="{{ object.pk }}">
-                        <button type="submit" class="ui negative basic button mb-7 w-big"><i
-                                class="minus square icon"></i>
-                            Remove from friends list
+                    {% if object.user in relation_receiver and request.user not in object.friends.all %}
+                        <button type="submit" class="ui disabled button mb-7 w-big"><i class="user icon"></i>
+                            Waiting for approval
                         </button>
-                    </form>
-                {% endif %}
+                    {% endif %}
+
+
+
+                    {% if request.user in object.friends.all %}
+                        <form action="{% url 'profiles:remove_friend' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="profile_pk" value="{{ object.pk }}">
+                            <button type="submit" class="ui negative basic button mb-7 w-big"><i
+                                    class="minus square icon"></i>
+                                Remove from friends list
+                            </button>
+                        </form>
+                    {% endif %}
+
+                {% endifnotequal %}
+
+                {% ifequal request.user object.user %}
+                    <a href="{% url 'profiles:my_profile_view' %}">
+                        <button type="submit" class="ui blue basic button mb-7 w-big"><i
+                                class="edit icon"></i>
+                            Profile settings
+                        </button>
+                    </a>
+                {% endifequal %}
 
             </div>
             <div class="twelve wide column">
                 {% if len_posts %}
-                    {% for post in posts %}
+                    {% for object in posts %}
                         <div class="ui segment fluid">
                             {{ post.content }}
+                        </div>
+
+                        <div class="ui fluid card">
+                            <div class="content">
+                                <div class="right floated meta">
+                                    <div class="ui grid">
+                                        <div class="row">
+                                            {% ifequal request.user object.author.user %}
+                                                <a href="{% url 'posts:post_update_view' object.pk %}">
+                                                    <button class="ui button bwhite-lg ">Update</button>
+                                                </a>
+                                                <a href="{% url 'posts:post_delete_view' object.pk %}">
+                                                    <button class="ui button bwhite-lg ">Delete</button>
+                                                </a>
+                                            {% endifequal %}
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <img class="ui avatar image" src={{ object.author.avatar.url }}>
+                                {{ object.author.user }} - {{ object.created|timesince }} ago
+                            </div>
+                            <div class="ui fluid image">
+                                {% if object.image %}
+                                    <img src={{ object.image.url }}>
+                                {% endif %}
+                            </div>
+                            <div class="content">
+                                <p> {{ object.content }} </p>
+                                <div class="right floated">
+                                    <form class="like-form" id="{{ object.id }}"
+                                          action="{% url 'posts:like_post_view' %}"
+                                          method="POST">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="post_id" value={{ object.id }}>
+                                        <button type="submit"
+                                                data-is-liked="{% if profile in object.liked.all %}true{% else %}false{% endif %}"
+                                                class="ui button like-btn{{ object.id }}">
+                                            {% if profile not in object.liked.all %}
+                                                Like
+                                            {% else %}
+                                                Unlike
+                                            {% endif %}
+                                        </button>
+                                        <div class="ui grid">
+                                            <div class="column">
+                                                <div class="like-count{{ object.id }}">{{ object.num_likes }}</div>
+                                            </div>
+                                            <div class="column">
+                                                likes
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <i class="comment icon"></i>
+                                <span> {{ object.num_comments }} comments</span>
+                            </div>
+                            <div class="extra content">
+                                <div class="mb-5">
+
+                                </div>
+                                <button class="comment_btn ui button mb-5">comments</button>
+                                <div class="comment-box">
+                                    {% if object.comment_set.all %}
+                                        {% for comment in object.comment_set.all %}
+
+                                            <div class="ui segment mb-5">
+                                                <img class="ui avatar image" src={{ comment.user.avatar.url }}>
+                                                <span>{{ comment.user }}</span>
+                                                <div class='mt-5'>{{ comment.body }}</div>
+                                            </div>
+
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+
+                                <form action="" method="POST" class='ui fluid form'>
+                                    {% csrf_token %}
+                                    <input type="hidden" name="post_id" value={{ object.id }}>
+                                    {{ comment_form }}
+                                    <button type="submit" name="submit_comment_form"
+                                            class="ui primary button mt-5 w-full">
+                                        Send
+                                    </button>
+                                    <div class="right floated mt-5">{{ object.created }}</div>
+                                </form>
+                            </div>
                         </div>
                     {% endfor %}
                 {% else %}
@@ -81,3 +183,49 @@
         </div>
     </div>
 {% endblock %}
+
+{% block scripts %}
+    <script>
+        $(document).ready(function () {
+            $(".comment_btn").click(function () {
+                $(this).next(".comment-box").toggle("normal");
+            });
+
+            $('.like-form').submit(function (event) {
+                event.preventDefault()
+
+                let postId = $(this).attr('id');
+                let isLiked = $(`.like-btn${postId}`).attr('data-is-liked')
+                let url = $(this).attr('action')
+                let likes = parseInt($(`.like-count${postId}`).text())
+
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: {
+                        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                        'post_id': postId,
+                    },
+                    success: function (response) {
+                        let likeButton = $(`.like-btn${postId}`)
+
+                        if (isLiked === 'true') {
+                            likeButton.text('Like');
+                            likeButton.attr('data-is-liked', 'false');
+                            $(`.like-count${postId}`).text(likes - 1);
+                        } else {
+                            likeButton.text('Unlike');
+                            likeButton.attr('data-is-liked', 'true');
+                            $(`.like-count${postId}`).text(likes + 1);
+                        }
+                    },
+                    error: function (response) {
+                        console.log('error', response)
+                    }
+                })
+
+            })
+        });
+    </script>
+
+{% endblock scripts %}

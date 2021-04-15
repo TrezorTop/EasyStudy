@@ -11,20 +11,20 @@ class ProfileManager(models.Manager):
         profiles = Profile.objects.all().exclude(user=sender)
         profile = Profile.objects.get(user=sender)
         query_set = Relationship.objects.filter(Q(sender=profile) | Q(receiver=profile))
-        print(query_set)
-        print("------------")
+        # print(query_set)
+        # print("------------")
 
         accepted = set([])
         for relation in query_set:
             if relation.status == 'accepted':
                 accepted.add(relation.receiver)
                 accepted.add(relation.sender)
-        print(accepted)
-        print("------------")
+        # print(accepted)
+        # print("------------")
 
         available = [profile for profile in profiles if profile not in accepted]
-        print(available)
-        print("------------")
+        # print(available)
+        # print("------------")
         return available
 
     def get_all_profiles(self, me):

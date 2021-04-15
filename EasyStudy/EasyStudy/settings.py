@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'posts',
     'profiles',
+    'documents',
 
     'allauth',
     'allauth.account',

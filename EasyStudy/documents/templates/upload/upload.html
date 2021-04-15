@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Upload page
+{% endblock title %}
+
+{% block content %}
+    <h2>Upload</h2>
+
+    <form class="ui form" action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="field">
+            <input type="file" name="document">
+        </div>
+        <div class="field">
+            <button class="ui button" type="submit">Upload file</button>
+        </div>
+    </form>
+
+    {% if url %}
+        <p>Uploaded file is here -> <a href="{{ url }}">Your file</a></p>
+    {% endif %}
+
+{% endblock %}
