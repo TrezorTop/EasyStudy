@@ -64,8 +64,11 @@
                     Logout
                 </a>
             {% else %}
+                <a href="{% url 'account_signup' %}" class="ui item">
+                    Sign up
+                </a>
                 <a href="{% url 'account_login' %}" class="ui item">
-                    Login
+                    Sing in
                 </a>
             {% endif %}
         </div>
