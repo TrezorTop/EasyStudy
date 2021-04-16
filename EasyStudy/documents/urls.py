@@ -4,9 +4,7 @@ from .views import *
 app_name = 'documents'
 
 urlpatterns = [
-    path('', upload, name='upload_file'),
-    path('files', file_list, name='file_list'),
-    path('files/upload', file_upload, name='file_upload'),
-
-    path('class/files', FileListView.as_view(), name='class_file_list'),
+    path('', FileListView.as_view(), name='file_list'),
+    path('upload', FileUploadView.as_view(), name='file_upload'),
+    path('delete/<int:pk>', file_delete, name='file_delete'),
 ]

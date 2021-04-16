@@ -21,14 +21,18 @@
             </div>
         </div>
 
-        {% for file in files %}
+        {% for file in user_files %}
 
             <div class="card">
                 <div class="content">
                     <div class="header">{{ file.title }}</div>
-                    <div class="meta">{{ file.author }}</div>
+                    <div class="meta">{{ file.author.user }}</div>
                     <div class="description">
-                        <a href="{{ file.user_file.url }}">Download this file</a>
+                        <a class="mini ui primary button" href="{{ file.user_file.url }}">Download</a>
+                        <form action="{% url 'documents:file_delete' file.pk %}" method="post">
+                            {% csrf_token %}
+                            <button class="mini ui red button mt-5" type="submit">Delete</button>
+                        </form>
                     </div>
                 </div>
             </div>

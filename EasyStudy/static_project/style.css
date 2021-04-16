@@ -38,3 +38,7 @@ body {
 .comment-box {
     display: none;
 }
+
+.red-font {
+    color: darkred!important;
+}
