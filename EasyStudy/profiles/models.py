@@ -33,9 +33,9 @@ class ProfileManager(models.Manager):
 
 
 class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=200, blank=True)
     last_name = models.CharField(max_length=200, blank=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(default="no bio...", max_length=300)
     email = models.EmailField(max_length=300, blank=True)
     contacts = models.CharField(max_length=200, blank=True)
@@ -85,12 +85,20 @@ class Profile(models.Model):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        self.first_name = self.user.first_name
+        self.last_name = self.user.last_name
+        self.email = self.user.email
+        self.slug = self.user.username.replace('.', '')
+
         self.__initial_first_name = self.first_name
         self.__initial_last_name = self.last_name
 
     def save(self, *args, **kwargs):
         slug_exists = False
         to_slug = self.slug
+
+        to_slug.replace('.', '')
         if self.first_name != self.__initial_first_name or self.last_name != self.__initial_last_name or self.slug == "":
             if self.first_name and self.last_name:
                 to_slug = slugify(str(self.first_name) + " " + str(self.last_name))
