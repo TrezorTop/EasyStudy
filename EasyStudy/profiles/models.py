@@ -40,7 +40,7 @@ class Profile(models.Model):
     email = models.EmailField(max_length=300, blank=True)
     contacts = models.CharField(max_length=200, blank=True)
     avatar = models.ImageField(default='avatar.png', upload_to='avatars/')
-    friends = models.ManyToManyField(User, blank=True, related_name='friends')
+    friends = models.ManyToManyField(User, blank=True, related_name='friends_list')
     slug = models.SlugField(unique=True, blank=True)
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
