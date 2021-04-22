@@ -1,13 +1,18 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Invite friends
+    Invite friends
 {% endblock title %}
 
 {% block content %}
-<ul>
-    {% for item in query_set %}
-    <li>{{ item }}</li>
-    {% endfor %}
-</ul>
+    <ul>
+        {% for object in query_set.get_friends %}
+            {% include 'profiles/profile_card.html' %}
+        {% endfor %}
+
+
+        {% for object in query_set.get_friends %}
+            <li>{{ object }}</li>
+        {% endfor %}
+    </ul>
 {% endblock content %}

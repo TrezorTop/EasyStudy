@@ -1,0 +1,45 @@
+<div class="ui segment">
+    <div class="ui grid">
+        <div class="row">
+            <div class="three wide column">
+                <img class="ui small circular image" src="{{ object.avatar.url }}" alt="">
+            </div>
+            <div class="thirteen wide column">
+                <h3>{{ object.user }}</h3>
+                <p> {{ object.bio }} </p>
+                <a href="{{ object.get_absolute_url }}">
+                    <button class="ui primary button mb-7 w-big">To profile</button>
+                </a>
+                <br>
+
+                {% if object.user not in relation_receiver and object.user not in relation_sender %}
+                    <form action="{% url 'profiles:send_invite' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="profile_pk" value="{{ object.pk }}">
+                        <button type="submit" class="ui positive basic button mb-7 w-big"><i
+                                class="plus square icon"></i>
+                            Add to friends list
+                        </button>
+                    </form>
+                {% endif %}
+
+                {% if object.user in relation_receiver and request.user not in object.friends.all %}
+                    <button type="submit" class="ui disabled button mb-7 w-big"><i class="user icon"></i>
+                        Waiting for approval
+                    </button>
+                {% endif %}
+
+                {% if request.user in object.friends.all %}
+                    <form action="{% url 'profiles:remove_friend' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="profile_pk" value="{{ object.pk }}">
+                        <button type="submit" class="ui negative basic button mb-7 w-big"><i
+                                class="minus square icon"></i>
+                            Remove from friends list
+                        </button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

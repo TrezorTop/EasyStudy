@@ -2,7 +2,7 @@
 {% url 'home_view' as path_to_home %}
 {% url 'profiles:my_profile_view' as path_to_my_profile %}
 {% url 'profiles:my_invites_view' as path_to_my_invites %}
-{% url 'profiles:invite_profiles_list_view' as path_to_invites %}
+{% url 'profiles:friends_list_view' as path_to_friends %}
 {% url 'profiles:all_profiles_view' as path_to_all_profiles %}
 {% url 'documents:file_list' as path_to_file_list %}
 
@@ -33,8 +33,8 @@
                                class="i{% if request.user == path_to_all_profiles %}active{% endif %} item">
                                 All Profiles
                             </a>
-                            <a href="{{ path_to_invites }}"
-                               class="{% if request.user == path_to_invites %}active{% endif %} item">
+                            <a href="{{ path_to_friends }}"
+                               class="{% if request.user == path_to_friends %}active{% endif %} item">
                                 Send Invites
                             </a>
                             <a href="{{ path_to_my_invites }}"

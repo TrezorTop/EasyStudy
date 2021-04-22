@@ -70,9 +70,9 @@ def reject_invitation(request):
 
 
 @login_required
-def invite_profiles_list_view(request):
+def friend_list_view(request):
     user = request.user
-    query_set = Profile.objects.get_all_profiles_to_invite(user)
+    query_set = Profile.objects.get(user=user)
 
     context = {'query_set': query_set}
 
