@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import JsonResponse
 
 
 @login_required
@@ -87,6 +88,37 @@ def profiles_list_view(request):
     context = {'query_set': query_set}
 
     return render(request, 'profiles/profile_list.html', context)
+
+
+def search_results(request):
+    if request.is_ajax():
+        res = None
+        profile_name = request.POST.get('profile')
+        query_set = Profile.objects.filter(
+            Q(first_name__icontains=profile_name) | Q(last_name__icontains=profile_name) | Q(
+                user__username__icontains=profile_name))
+
+        if len(query_set) > 0 and len(profile_name) > 0:
+            data = []
+            for pos in query_set:
+                item = {
+                    'slug': pos.slug,
+                    'first_name': pos.first_name,
+                    'last_name': pos.last_name,
+                    'user': pos.user.username,
+                    'image': str(pos.avatar.url),
+                }
+                data.append(item)
+                res = data
+
+        else:
+            res = 'No profiles found'
+
+        return JsonResponse(
+            {
+                'data': res
+            }
+        )
 
 
 class ProfileDetailView(LoginRequiredMixin, DetailView):

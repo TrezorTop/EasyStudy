@@ -46,13 +46,19 @@
                     </div>
                 </div>
                 <div class="item">
-                    <form action="" method="GET">
+                    <form id="search-form" autocomplete="off">
                         <div class="ui action left icon input">
-                            <input class="prompt" type="text" name='q' placeholder="name of a user">
+                            {% csrf_token %}
+                            <input id="search-input" class="prompt" type="text" name='q' placeholder="Name of a user">
                             <i class="search icon"></i>
                             <button type='submit' class="ui button">Search</button>
                         </div>
                     </form>
+                    <div id="results-box" class="search-results-container display-none">
+                        <div id="results-cards" class="ui cards">
+
+                        </div>
+                    </div>
                 </div>
                 <a href="{{ path_to_my_profile }}"
                    class="{% if request.path == path_to_my_profile %}active{% endif %} item">
@@ -74,3 +80,65 @@
         </div>
     </div>
 </div>
+
+{% block scripts %}
+    <script>
+        const url = document.location.origin
+        console.log(url)
+
+        let searchForm = $('#search-form');
+        let searchInput = $('#search-input');
+        let resultsBox = $('#results-box');
+        let resultsBoxCards = $('#results-cards');
+        let csrf = $('input[name="csrfmiddlewaretoken"]').val()
+
+        const sendSearchData = (profileName) => {
+            $.ajax({
+                type: 'POST',
+                url: '../profiles/search/',
+                data: {
+                    'csrfmiddlewaretoken': csrf,
+                    'profile': profileName,
+                },
+                success: (res) => {
+                    let data = res.data
+                    if (Array.isArray(data)) {
+                        resultsBox.html('');
+                        data.forEach(data => {
+                            resultsBox.append(`
+                                <div class="card">
+                                    <div class="content">
+                                        <div class="header">
+                                            <a href="${url}/profiles/${data.slug}">${data.first_name} ${data.last_name}</a>
+                                        </div>
+                                        <div class="meta">
+                                            ${data.user}
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                            `)
+                        })
+                    } else {
+                        if (searchInput.val().length > 0) {
+                            resultsBox.html(`<b>${data}</b>`)
+                        } else {
+                            resultsBox.addClass('display-none');
+                        }
+                    }
+                },
+                error: (err) => {
+                    console.log(err)
+                }
+            })
+        }
+
+        searchInput.keyup(targetEvent => {
+            if (resultsBox.hasClass('display-none')) {
+                resultsBox.removeClass('display-none')
+            }
+
+            sendSearchData(targetEvent.target.value)
+        })
+    </script>
+{% endblock %}

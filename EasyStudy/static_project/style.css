@@ -40,5 +40,23 @@ body {
 }
 
 .red-font {
-    color: darkred!important;
+    color: darkred !important;
+}
+
+.display-none {
+    display: none !important;
+}
+
+.search-results-container {
+    padding: 15px!important;
+    top: 60px !important;
+    color: black !important;
+    position: absolute !important;
+    width: 90% !important;
+    background-color: #e5e5e5 !important;
+    transition: 250ms!important;
+
+    z-index: 1!important;
+
+    border-radius: 4px!important;
 }

@@ -9,6 +9,7 @@ from .views import (
     remove_from_friends,
     accept_invitation,
     reject_invitation,
+    search_results,
 )
 
 app_name = 'profiles'
@@ -20,7 +21,7 @@ urlpatterns = [
     path('friends/', friend_list_view, name='friends_list_view'),
     path('send_invite/', send_invitation, name='send_invite'),
     path('remove_friend/', remove_from_friends, name='remove_friend'),
-    path('<slug>/', ProfileDetailView.as_view(), name='profile_detail_view'),
+    path('search/', search_results, name='search'),
     path('my_invites/accept', accept_invitation, name='accept_invite'),
-    path('my_invites/reject', reject_invitation, name='reject_invite'),
+    path('<slug>/', ProfileDetailView.as_view(), name='profile_detail_view'),
 ]
