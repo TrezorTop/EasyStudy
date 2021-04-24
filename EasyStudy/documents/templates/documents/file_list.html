@@ -8,36 +8,41 @@
 
 {% block content %}
     <h2>File list</h2>
-    <div class="ui cards">
-
-
-        <div class="ui card">
-            <div class="content">
-                <div class="center aligned">
-                    <button class="massive ui button">
-                        <a href="{% url 'documents:file_upload' %}">Add a new one</a>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        {% for file in user_files %}
-
-            <div class="card">
-                <div class="content">
-                    <div class="header">{{ file.title }}</div>
-                    <div class="meta">{{ file.author.user }}</div>
-                    <div class="description">
-                        <a class="mini ui primary button" href="{{ file.user_file.url }}">Download</a>
-                        <form action="{% url 'documents:file_delete' file.pk %}" method="post">
-                            {% csrf_token %}
-                            <button class="mini ui red button mt-5" type="submit">Delete</button>
-                        </form>
+    <div class="ui grid">
+        <div class="thirteen wide column">
+            <div class="ui cards">
+                <div class="ui card">
+                    <div class="content">
+                        <div class="center aligned">
+                            <button class="massive ui button">
+                                <a href="{% url 'documents:file_upload' %}">Add a new one</a>
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-        {% endfor %}
+                {% for file in files %}
+
+                    <div class="card">
+                        <div class="content">
+                            <div class="header">{{ file.title }}</div>
+                            <div class="meta">{{ file.author.user }}</div>
+                            <div class="description">
+                                <a class="mini ui primary button" href="{{ file.user_file.url }}">Download</a>
+                                <form action="{% url 'documents:file_delete' file.pk %}" method="post">
+                                    {% csrf_token %}
+                                    <button class="mini ui red button mt-5" type="submit">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                {% endfor %}
+            </div>
+        </div>
+        <div class="three wide column">
+            {% include 'documents/category_list.html' %}
+        </div>
     </div>
 
 {% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Category creation
+{% endblock title %}
+
+{% block content %}
+    <h2>New category</h2>
+    <form class="ui form" action="" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="ui button primary">Add</button>
+    </form>
+
+    <h3>Existing categories:</h3>
+    <div class="ui list">
+        {% for category in categories %}
+            <div class="item">
+                {{ category.title }}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

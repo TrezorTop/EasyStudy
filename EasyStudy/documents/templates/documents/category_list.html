@@ -1,0 +1,17 @@
+<div class="ui cards">
+    <div class="card">
+        <div class="content">
+            <h3>Category list</h3>
+            <div class="ui list">
+                <div class="item">
+                    <a class="mini ui button primary" href="{% url 'documents:category_create' %}">Add category</a>
+                </div>
+                {% for category in categories %}
+                    <div class="item">
+                        {{ category.title }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>

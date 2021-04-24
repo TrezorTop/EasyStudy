@@ -1,12 +1,41 @@
 from django.shortcuts import render, redirect
-from django.core.files.storage import FileSystemStorage
-from django.contrib.auth.decorators import login_required
-from .forms import FileForm
-from .models import Profile, File
+from .forms import FileForm, CategoryForm
+from .models import Profile, File, Category
 from django.views.generic import ListView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
+
+
+def file_upload(request):
+    if request.method == 'POST':
+        form = FileForm(request.POST, request.FILES)
+        if form.is_valid():
+            user = User.objects.get(username__iexact=request.user)
+            profile = Profile.objects.get(user=user)
+
+            instance = form.save(commit=False)
+            instance.author = profile
+            instance.save()
+
+            return redirect('documents:file_list')
+    else:
+        form = FileForm()
+    return render(request, 'documents/file_upload.html', {
+        'form': form
+    })
+
+
+def file_list(request):
+    user = User.objects.get(username__iexact=request.user)
+    profile = Profile.objects.get(user=user)
+    categories = Category.objects.filter(profile=profile).order_by('-created_at')
+
+    files = File.objects.filter(author=profile)
+    return render(request, 'documents/file_list.html', {
+        'files': files,
+        'categories': categories
+    })
 
 
 def file_delete(request, pk):
@@ -16,35 +45,26 @@ def file_delete(request, pk):
         return redirect('documents:file_list')
 
 
-class FileListView(LoginRequiredMixin, ListView):
-    model = File
-    queryset = File.objects.all().order_by('-created_at')
-    template_name = 'documents/file_list.html'
-    context_object_name = 'files'
+def category_create(request):
+    user = User.objects.get(username__iexact=request.user)
+    profile = Profile.objects.get(user=user)
+    categories = Category.objects.filter(profile=profile).order_by('-created_at')
+    if request.method == 'POST':
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            user = User.objects.get(username__iexact=request.user)
+            profile = Profile.objects.get(user=user)
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super(FileListView, self).get_context_data(**kwargs)
-        context['user_files'] = self.get_user_files()
-        return context
+            instance = form.save(commit=False)
+            instance.profile = profile
+            instance.save()
 
-    def get_user_files(self):
-        user = User.objects.get(username__iexact=self.request.user)
-        profile = Profile.objects.get(user=user)
-        return super(FileListView, self).get_queryset().filter(author=profile)
+            return redirect('documents:category_create')
+    else:
+        form = CategoryForm()
+    context = {
+        'categories': categories,
+        'form': form
+    }
+    return render(request, 'documents/category_create.html', context)
 
-
-class FileUploadView(LoginRequiredMixin, CreateView):
-    model = File
-    form_class = FileForm
-    success_url = reverse_lazy('file_list')
-    template_name = 'documents/file_upload.html'
-
-    def form_valid(self, form):
-        user = User.objects.get(username__iexact=self.request.user)
-        profile = Profile.objects.get(user=user)
-
-        self.instance = form.save(commit=False)
-        self.instance.author = profile
-        self.instance.save()
-
-        return redirect('documents:file_list')
