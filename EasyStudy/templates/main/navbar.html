@@ -94,7 +94,7 @@
         const sendSearchData = (profileName) => {
             $.ajax({
                 type: 'POST',
-                url: '../profiles/search/',
+                url: `${url}/profiles/search/`,
                 data: {
                     'csrfmiddlewaretoken': csrf,
                     'profile': profileName,

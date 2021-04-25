@@ -89,25 +89,27 @@ class Profile(models.Model):
         self.first_name = self.user.first_name
         self.last_name = self.user.last_name
         self.email = self.user.email
-        self.slug = self.user.username.replace('.', '')
+        self.slug = slugify(str(self.user.username))
 
         self.__initial_first_name = self.first_name
         self.__initial_last_name = self.last_name
+
+        self.__initial_username = self.user.username
 
     def save(self, *args, **kwargs):
         slug_exists = False
         to_slug = self.slug
 
         to_slug.replace('.', '')
-        if self.first_name != self.__initial_first_name or self.last_name != self.__initial_last_name or self.slug == "":
-            if self.first_name and self.last_name:
-                to_slug = slugify(str(self.first_name) + " " + str(self.last_name))
+        if self.user.username != self.__initial_username or self.slug == "":
+            if self.user.username:
+                to_slug = slugify(str(self.user.username))
                 slug_exists = Profile.objects.filter(slug=to_slug).exists()
                 while slug_exists:
                     to_slug = slugify(to_slug + " " + str(get_random_code()))
                     slug_exists = Profile.objects.filter(slug=to_slug).exists()
             else:
-                to_slug = str(self.user)
+                to_slug = str(self.user.username)
         self.slug = to_slug
         super().save(*args, **kwargs)
 

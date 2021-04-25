@@ -48,15 +48,24 @@ body {
 }
 
 .search-results-container {
-    padding: 15px!important;
+    padding: 15px !important;
     top: 60px !important;
     color: black !important;
     position: absolute !important;
     width: 90% !important;
     background-color: #e5e5e5 !important;
-    transition: 250ms!important;
+    transition: 250ms !important;
 
-    z-index: 1!important;
+    z-index: 1 !important;
 
-    border-radius: 4px!important;
+    border-radius: 4px !important;
+}
+
+.display-flex {
+    display: flex !important;
+    justify-content: space-between;
+}
+
+.display-flex .flex-right {
+    text-align: right;
 }

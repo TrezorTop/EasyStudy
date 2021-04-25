@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form class="ui form" action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <a class="ui orange button" href="{% url 'documents:file_list' %}">Back</a>
+        <button type="submit" class="ui primary button">Save</button>
+    </form>
+{% endblock %}

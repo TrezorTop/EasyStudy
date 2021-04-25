@@ -1,0 +1,28 @@
+<div class="card">
+    <div class="content">
+        <div class="display-flex">
+            <div class="flex-left">
+                <div class="header">
+                    <a href="{% url 'documents:file_details' file.pk %}">{{ file.title }}</a>
+                </div>
+                <div class="meta">{{ file.author.user }}</div>
+                <div class="description">
+                    <a class="mini ui primary button" href="{{ file.user_file.url }}">Download</a>
+                    <form action="{% url 'documents:file_delete' file.pk %}" method="post">
+                        {% csrf_token %}
+                        <button class="mini ui red button mt-5" type="submit">Delete</button>
+                        <a class="mini ui teal button" href="{% url 'documents:file_details' file.pk %}">Edit</a>
+                    </form>
+                </div>
+            </div>
+            <div class="flex-right">
+                <h5>Categories:</h5>
+                {% for item in file.get_category %}
+                    <p>{{ item }}</p>
+                {% empty %}
+                    <p>None</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>

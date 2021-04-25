@@ -3,9 +3,11 @@
         <div class="content">
             <h3>Category list</h3>
             <div class="ui list">
-                <div class="item">
-                    <a class="mini ui button primary" href="{% url 'documents:category_create' %}">Add category</a>
-                </div>
+                {% ifequal request.user files.first.author.user %}
+                    <div class="item">
+                        <a class="mini ui button primary" href="{% url 'documents:category_create' %}">Add category</a>
+                    </div>
+                {% endifequal %}
                 {% for category in categories %}
                     <div class="item">
                         {{ category.title }}

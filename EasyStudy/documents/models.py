@@ -8,6 +8,7 @@ class File(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    category = models.ManyToManyField('Category', blank=True)
 
     def __str__(self):
         return self.title
@@ -15,6 +16,9 @@ class File(models.Model):
     def delete(self, *args, **kwargs):
         self.user_file.delete()
         super().delete(*args, **kwargs)
+
+    def get_category(self):
+        return self.category.all()
 
 
 class Category(models.Model):

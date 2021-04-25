@@ -23,19 +23,7 @@
 
                 {% for file in files %}
 
-                    <div class="card">
-                        <div class="content">
-                            <div class="header">{{ file.title }}</div>
-                            <div class="meta">{{ file.author.user }}</div>
-                            <div class="description">
-                                <a class="mini ui primary button" href="{{ file.user_file.url }}">Download</a>
-                                <form action="{% url 'documents:file_delete' file.pk %}" method="post">
-                                    {% csrf_token %}
-                                    <button class="mini ui red button mt-5" type="submit">Delete</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+                    {% include 'documents/file_card.html' %}
 
                 {% endfor %}
             </div>
@@ -45,4 +33,13 @@
         </div>
     </div>
 
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        let categoryForm = $('.category-form')
+        $('.category-form-popup-button').click(function () {
+            $(this).next(".category-form").toggle("normal");
+        });
+    </script>
 {% endblock %}
