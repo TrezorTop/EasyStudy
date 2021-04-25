@@ -1,10 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from .forms import FileForm, CategoryAddForm, FileCategoryForm, CreateFileCategoryForm
+from .forms import FileForm, CategoryAddForm, CreateFileCategoryForm
 from .models import Profile, File, Category
 from django.contrib.auth.models import User
 
 
+@login_required
 def file_upload(request):
     if request.method == 'POST':
         form = FileForm(request.POST, request.FILES)
@@ -60,6 +61,7 @@ def file_details(request, pk, *args, **kwargs):
     return render(request, 'documents/file_details.html', context)
 
 
+@login_required
 def file_delete(request, pk):
     if request.method == 'POST':
         file = File.objects.get(pk=pk)
