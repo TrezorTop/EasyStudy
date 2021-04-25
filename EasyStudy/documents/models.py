@@ -23,7 +23,7 @@ class File(models.Model):
 
 class Category(models.Model):
     title = models.CharField(max_length=128, db_index=True)
-    profile = models.ForeignKey(Profile, on_delete=models.PROTECT)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)
 

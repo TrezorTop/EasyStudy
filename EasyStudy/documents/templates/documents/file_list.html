@@ -37,9 +37,39 @@
 
 {% block scripts %}
     <script>
-        let categoryForm = $('.category-form')
-        $('.category-form-popup-button').click(function () {
-            $(this).next(".category-form").toggle("normal");
-        });
+        $(document).ready(function () {
+
+            $('input[name="category"]').click(function () {
+                let selected = new Array();
+                $("input:checkbox[name=category]:checked").each(function () {
+                    let value = $(this).val()
+                    selected.push(value);
+
+                });
+                $.each(selected, function (index, item) {
+                    selected[index] = "." + selected[index]
+                })
+
+                selected += ""
+
+                let fileCards = $('.category-card')
+                $.each(fileCards, function (index, value) {
+
+                    console.log($('input:checkbox[name=category]:checked').length)
+
+                    if ($('input:checkbox[name=category]:checked').length > 0) {
+                        console.log(selected)
+                        if ($(value).is(selected)) {
+                            $(value).show("normal");
+                        } else {
+                            $(value).hide("normal");
+                        }
+                    } else {
+                        $(value).show("normal");
+                    }
+
+                })
+            });
+        })
     </script>
 {% endblock %}

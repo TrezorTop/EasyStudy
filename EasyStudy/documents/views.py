@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from .forms import FileForm, CategoryAddForm, FileCategoryForm, CreateFileCategoryForm
 from .models import Profile, File, Category
@@ -66,21 +67,6 @@ def file_delete(request, pk):
         return redirect('documents:file_list')
 
 
-# def file_category_add(request, pk):
-#     if request.method == 'POST':
-#         form = FileCategoryForm(request.POST)
-#         if form.is_valid():
-#             instance = form.save(commit=False)
-#             instance.save()
-#
-#             return redirect('documents:file_list')
-#     else:
-#         form = FileCategoryForm()
-#     context = {
-#         'form': form
-#     }
-
-
 def category_create(request):
     user = User.objects.get(username__iexact=request.user)
     profile = Profile.objects.get(user=user)
@@ -103,3 +89,11 @@ def category_create(request):
         'form': form
     }
     return render(request, 'documents/category_create.html', context)
+
+
+@login_required
+def category_delete(request, pk):
+    category = Category.objects.get(pk=pk)
+    print(category)
+    category.delete()
+    return redirect('documents:file_list')

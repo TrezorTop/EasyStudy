@@ -10,7 +10,9 @@
                 {% endifequal %}
                 {% for category in categories %}
                     <div class="item">
-                        {{ category.title }}
+                        <input type="checkbox" name="category"
+                               value="{{ category.title }}">&nbsp;{{ category.title }}&nbsp;<a
+                            href="{% url 'documents:category_delete' category.pk %}"><i class="red x icon"></i></a>
                     </div>
                 {% endfor %}
             </div>

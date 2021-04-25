@@ -8,6 +8,6 @@ urlpatterns = [
     path('upload', file_upload, name='file_upload'),
     path('delete/<int:pk>', file_delete, name='file_delete'),
     path('<int:pk>', file_details, name='file_details'),
-    # path('category/add/<int:pk>', file_category_add, name='file_category_add'),
     path('category/create', category_create, name='category_create'),
+    path('category/delete/<int:pk>', category_delete, name='category_delete'),
 ]
