@@ -5,7 +5,8 @@
                 <img class="ui small circular image" src="{{ object.avatar.url }}" alt="">
             </div>
             <div class="thirteen wide column">
-                <h3>{{ object.user }}</h3>
+                <h3>{{ object.user.first_name }}&nbsp;{{ object.user.last_name }}</h3>
+                <h4>{{ object.user }}</h4>
                 <p> {{ object.bio }} </p>
                 <a href="{{ object.get_absolute_url }}">
                     <button class="ui primary button mb-7 w-big">To profile</button>

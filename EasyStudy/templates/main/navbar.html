@@ -4,6 +4,7 @@
 {% url 'profiles:my_invites_view' as path_to_my_invites %}
 {% url 'profiles:friends_list_view' as path_to_friends %}
 {% url 'profiles:all_profiles_view' as path_to_all_profiles %}
+{#{% url 'documents:user_files' request.user.profile.slug as path_to_file_list %}#}
 {% url 'documents:file_list' as path_to_file_list %}
 
 
@@ -46,10 +47,10 @@
                     </div>
                 </div>
                 <div class="item">
-                    <form id="search-form" autocomplete="off">
+                    <form id="search-form" autocomplete="off" action="{% url "profiles:search_list_results" %}">
                         <div class="ui action left icon input">
                             {% csrf_token %}
-                            <input id="search-input" class="prompt" type="text" name='q' placeholder="Name of a user">
+                            <input id="search-input" class="prompt" type="text" name='profile_search' placeholder="Name of a user">
                             <i class="search icon"></i>
                             <button type='submit' class="ui button">Search</button>
                         </div>

@@ -7,6 +7,7 @@ from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
+from documents.models import File
 
 
 @login_required
@@ -121,6 +122,23 @@ def search_results(request):
         )
 
 
+def search_list_results(request):
+    profile_name = request.GET.get('profile_search')
+
+    if profile_name:
+        profiles = Profile.objects.filter(
+            Q(first_name__icontains=profile_name) | Q(last_name__icontains=profile_name) | Q(
+                user__username__icontains=profile_name))
+    else:
+        return redirect('profiles:all_profiles_view')
+
+    context = {
+        'query_set': profiles
+    }
+
+    return render(request, 'profiles/profile_list.html', context)
+
+
 class ProfileDetailView(LoginRequiredMixin, DetailView):
     model = Profile
     template_name = 'profiles/detail.html'
@@ -137,6 +155,7 @@ class ProfileDetailView(LoginRequiredMixin, DetailView):
         profile = Profile.objects.get(user=user)
         relation_receiver = Relationship.objects.filter(sender=profile)
         relation_sender = Relationship.objects.filter(receiver=profile)
+        files = File.objects.filter(author=self.get_object())[:5]
 
         relation_receiver_listed = []
         relation_sender_listed = []
@@ -151,6 +170,7 @@ class ProfileDetailView(LoginRequiredMixin, DetailView):
         context["relation_sender"] = relation_sender_listed
         context["posts"] = self.get_object().get_all_author_posts()
         context["len_posts"] = True if len(self.get_object().get_all_author_posts()) > 0 else False
+        context["files"] = files
 
         return context
 

@@ -9,6 +9,7 @@
     <form class="ui form" action="" method="POST">
         {% csrf_token %}
         {{ form.as_p }}
+        <a class="ui orange button" href="{% url 'documents:file_list' %}">Back</a>
         <button type="submit" class="ui button primary">Add</button>
     </form>
 

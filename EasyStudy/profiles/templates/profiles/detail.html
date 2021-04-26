@@ -58,8 +58,6 @@
                         </button>
                     {% endif %}
 
-
-
                     {% if request.user in object.friends.all %}
                         <form action="{% url 'profiles:remove_friend' %}" method="POST">
                             {% csrf_token %}
@@ -72,6 +70,20 @@
                     {% endif %}
 
                 {% endifnotequal %}
+                <h4>Files</h4>
+                <div class="ui vertical fluid menu">
+                    {% for file in files %}
+                        <div class="item display-flex">
+                            {{ file.title }}
+                            <div class="right">
+                                <a class="mini ui primary button" href="{{ file.user_file.url }}">Download</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <div>
+                        <a href="{% url 'documents:user_files' object.slug %}">Get more</a>
+                    </div>
+                </div>
 
                 {% ifequal request.user object.user %}
                     <a href="{% url 'profiles:my_profile_view' %}">

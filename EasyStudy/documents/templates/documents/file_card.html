@@ -1,4 +1,4 @@
-<div class="category-card card{% for item in file.get_category %} {{ item }}{% endfor %}">
+<div class="category-card card" data-category="{% for item in file.get_category %}{{ item }},{% endfor %}">
     <div class="content">
         <div class="display-flex">
             <div class="flex-left">
@@ -10,8 +10,11 @@
                     <a class="mini ui primary button" href="{{ file.user_file.url }}">Download</a>
                     <form action="{% url 'documents:file_delete' file.pk %}" method="post">
                         {% csrf_token %}
-                        <button class="mini ui red button mt-5" type="submit">Delete</button>
-                        <a class="mini ui teal button" href="{% url 'documents:file_details' file.pk %}">Edit</a>
+
+                        {% ifequal request.user file.author.user %}
+                            <button class="mini ui red button mt-5" type="submit">Delete</button>
+                            <a class="mini ui teal button" href="{% url 'documents:file_details' file.pk %}">Edit</a>
+                        {% endifequal %}
                     </form>
                 </div>
             </div>

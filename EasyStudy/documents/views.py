@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from .forms import FileForm, CategoryAddForm, CreateFileCategoryForm
 from .models import Profile, File, Category
@@ -28,14 +29,50 @@ def file_upload(request):
 def file_list(request, *args, **kwargs):
     user = User.objects.get(username__iexact=request.user)
     profile = Profile.objects.get(user=user)
-    categories = Category.objects.filter(profile=profile).order_by('-created_at')
+    categories = Category.objects.filter(profile=profile)
 
     files = File.objects.filter(author=profile)
 
     return render(request, 'documents/file_list.html', {
         'files': files,
         'categories': categories,
+        'profile': profile
     })
+
+
+def file_search(request, slug):
+    profile = Profile.objects.get(slug=slug)
+    categories = Category.objects.filter(profile=profile)
+    files = File.objects.filter(author=profile)
+
+    title = request.GET.get('search')
+
+    if title:
+        files = File.objects.filter(author=profile, title__icontains=title)
+
+    context = {
+        'files': files,
+        'categories': categories,
+        'profile': profile,
+        'title': title
+    }
+
+    return render(request, 'documents/file_list.html', context)
+
+
+def user_files(request, slug):
+    profile = Profile.objects.get(slug=slug)
+
+    files = File.objects.filter(author=profile)
+    categories = Category.objects.filter(profile=profile)
+
+    context = {
+        'files': files,
+        'categories': categories,
+        'profile': profile,
+    }
+
+    return render(request, 'documents/file_list.html', context)
 
 
 def file_details(request, pk, *args, **kwargs):

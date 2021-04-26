@@ -67,5 +67,6 @@ body {
 }
 
 .display-flex .flex-right {
-    text-align: right;
+    text-align: right!important;
 }
+

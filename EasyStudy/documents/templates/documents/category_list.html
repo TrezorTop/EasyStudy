@@ -3,7 +3,7 @@
         <div class="content">
             <h3>Category list</h3>
             <div class="ui list">
-                {% ifequal request.user files.first.author.user %}
+                {% ifequal request.user profile.user %}
                     <div class="item">
                         <a class="mini ui button primary" href="{% url 'documents:category_create' %}">Add category</a>
                     </div>
@@ -11,8 +11,12 @@
                 {% for category in categories %}
                     <div class="item">
                         <input type="checkbox" name="category"
-                               value="{{ category.title }}">&nbsp;{{ category.title }}&nbsp;<a
-                            href="{% url 'documents:category_delete' category.pk %}"><i class="red x icon"></i></a>
+                               value="{{ category.title }}">&nbsp;{{ category.title }}&nbsp;
+                        <a href="{% url 'documents:category_delete' category.pk %}">
+                            {% ifequal request.user profile.user %}
+                                <i class="red x icon"></i>
+                            {% endifequal %}
+                        </a>
                     </div>
                 {% endfor %}
             </div>

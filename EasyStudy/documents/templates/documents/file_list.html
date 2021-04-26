@@ -8,18 +8,30 @@
 
 {% block content %}
     <h2>File list</h2>
+
+    <form class="ui form display-flex mb-7" action="{% url 'documents:file_search' profile.slug %}">
+        <input type="search" placeholder="Title of file" name="search" value={% if title %}{{ title }}{% endif %}>
+        <button class="ui button primary" type="submit">Search</button>
+    </form>
     <div class="ui grid">
         <div class="thirteen wide column">
             <div class="ui cards">
-                <div class="ui card">
-                    <div class="content">
-                        <div class="center aligned">
-                            <button class="massive ui button">
-                                <a href="{% url 'documents:file_upload' %}">Add a new one</a>
-                            </button>
+
+                {% with files|first as file %}
+
+                    {% ifequal request.user profile.user %}
+                        <div class="ui card">
+                            <div class="content">
+                                <div class="center aligned">
+                                    <button class="massive ui button">
+                                        <a href="{% url 'documents:file_upload' %}">Add a new one</a>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    {% endifequal %}
+
+                {% endwith %}
 
                 {% for file in files %}
 
@@ -40,30 +52,35 @@
         $(document).ready(function () {
 
             $('input[name="category"]').click(function () {
-                let selected = new Array();
+                let selected = [];
                 $("input:checkbox[name=category]:checked").each(function () {
                     let value = $(this).val()
                     selected.push(value);
 
                 });
-                $.each(selected, function (index, item) {
-                    selected[index] = "." + selected[index]
-                })
-
-                selected += ""
 
                 let fileCards = $('.category-card')
                 $.each(fileCards, function (index, value) {
 
-                    console.log($('input:checkbox[name=category]:checked').length)
-
                     if ($('input:checkbox[name=category]:checked').length > 0) {
+
+                        let data = $(value).data('category')
+
+                        data = data.split(',')
+
+                        console.log(data)
                         console.log(selected)
-                        if ($(value).is(selected)) {
+
+                        let isExists = data.some(function (x) {
+                            return selected.indexOf(x) > -1;
+                        });
+
+                        if (isExists) {
                             $(value).show("normal");
                         } else {
                             $(value).hide("normal");
                         }
+
                     } else {
                         $(value).show("normal");
                     }
