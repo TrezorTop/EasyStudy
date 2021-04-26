@@ -14,8 +14,8 @@
     <div w3-include-html="/Social_Network_Python_Django/_Front/Pages/Templates/Header.html"></div>
 
     <main class="container FillScreen">
-        <section class="PostList Card">
-            <article class="Post">
+        <section class="PostList">
+            <article class="Post Card">
                 <div class="Top Padding">
                     <div class="ProfileInfo">
                         <i class="fas fa-user"></i>
@@ -61,7 +61,61 @@
                         </div>
                     </article>
                 </div>
-                <form class="Padding" action="" id="SendComment">
+                <form class="Padding" action="">
+                    <input type="text" placeholder="Add a comment...">
+                    <div>
+                        <button type="submit">Send</button>
+                        <p>April 2, 2021, 8 p.m.</p>
+                    </div>
+                </form>
+            </article>
+            <article class="Post Card">
+                <div class="Top Padding">
+                    <div class="ProfileInfo">
+                        <i class="fas fa-user"></i>
+                        <div class="UserData">
+                            <h3 class="SmallFont">Catalan</h3>
+                            <span class="SmallFont">-</span>
+                            <p class="SmallFont">3 days, 2 hours ago</p>
+                        </div>
+                    </div>
+                    <div class="Actions">
+                        <ul>
+                            <li><a href="Update.html">Update</a></li>
+                            <li><a href="Delete.html">Delete</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="Middle Padding">
+                    <p class="Content">Test</p>
+                    <div class="SocialActions">
+                        <div class="Comments">
+                            <i class="fas fa-comment"></i>
+                            <p>0 comments</p>
+                        </div>
+                        <div class="Likes">
+                            <i class="fas fa-thumbs-up"></i>
+                            <p>0 likes</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="Comments Padding">
+                    <button>Comments</button>
+                    <article>
+                        <div class="ProfileInfo">
+                            <i class="fas fa-user"></i>
+                            <div class="UserData">
+                                <h3 class="SmallFont">Catalan</h3>
+                                <span class="SmallFont">-</span>
+                                <p class="SmallFont">3 days, 2 hours ago</p>
+                            </div>
+                        </div>
+                        <div class="test">
+                            <p>Tested comment</p>
+                        </div>
+                    </article>
+                </div>
+                <form class="Padding" action="">
                     <input type="text" placeholder="Add a comment...">
                     <div>
                         <button type="submit">Send</button>

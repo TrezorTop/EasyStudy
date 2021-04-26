@@ -1,0 +1,79 @@
+@use "../services/services";
+
+main {
+  section {
+    h2 {
+      font-weight: bold;
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+    }
+
+    div {
+      display: flex;
+      gap: 10%;
+
+      .Left {
+        display: flex;
+        flex-direction: column;
+        max-width: 60%;
+        $margin: 10%;
+
+        img {
+          margin-bottom: $margin;
+          width: 300px;
+          object-fit: cover;
+        }
+        button {
+          margin-bottom: $margin;
+          @include services.StandardButton;
+          border: none;
+          $color: black;
+          background-color: $color;
+          padding: 5%;
+          width: fit-content;
+          font-weight: bold;
+          font-size: .7rem;
+          &:hover {
+            background-color: lighten($color, 20%);
+          }
+        }
+        a {
+          font-size: .9rem;
+          color: deepskyblue;
+        }
+      }
+      .Right {
+        width: 100%;
+
+        ul {
+          display: flex;
+          padding: 0;
+          flex-direction: column;
+          border: 1px solid rgba(0, 0, 0, 0.10);
+          border-radius: 5px;
+
+          li {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding: .7rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.10);
+            &:last-child {
+              border-bottom: none;
+            }
+
+            .title {
+              width: 25%;
+              font-weight: lighter;
+            }
+            .info {
+              flex-grow: 1;
+              max-width: 75%;
+              text-align: left;
+            }
+          }
+        }
+      }
+    }
+  }
+}

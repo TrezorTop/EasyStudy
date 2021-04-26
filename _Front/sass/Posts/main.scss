@@ -31,9 +31,6 @@
 }
 
 
-@import "Card";
-
-
 main {
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -42,6 +39,9 @@ main {
 
   .PostList {
     .Post {
+      padding: 0;
+      margin-bottom: 5%;
+
       .Padding {
         padding: 2% !important;
       }

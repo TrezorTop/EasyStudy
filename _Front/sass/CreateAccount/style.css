@@ -44,6 +44,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  height: 100%;
 }
 
 main {
@@ -100,6 +101,14 @@ main {
   font-size: 0.8rem;
   color: #666666;
   margin-left: 0.8rem;
+}
+
+.Card {
+  background-color: white;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
+  box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
+  padding: 2%;
 }
 
 main {

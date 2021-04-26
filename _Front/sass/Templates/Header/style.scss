@@ -22,7 +22,76 @@ header {
         display: flex;
         align-items: center;
         gap: .4rem;
+        text-align: center;
+
+        #Menu {
+          background-color: rgba(black, .2);
+          position: relative;
+
+          .visible {
+            display: block !important;
+          }
+
+          div {
+            transition: display services.$transition;
+            display: none;
+            position: absolute;
+            top: 100%;
+            margin-top: .8rem;
+            right: 0;
+
+            ul {
+              padding: .5rem 2rem .5rem 1rem;
+              width: max-content;
+
+              &:hover {
+                a {
+                  color: services.$accent;
+                }
+              }
+
+              a {
+                width: 100%;
+                transition: color services.$accent;
+                text-align: left;
+                color: black;
+                font-size: .8rem;
+                text-transform: initial;
+              }
+            }
+          }
+        }
+
       }
+    }
+
+    .controlPanel {
+      #Search {
+        display: flex;
+        border-radius: 5px;
+        overflow: hidden;
+
+        input {
+          @include services.Input;
+          padding: 4% 5%;
+          border: unset;
+          border-radius: unset;
+        }
+
+        button {
+          @include services.StandardButton;
+          padding: 4% 5%;
+          border: unset;
+          background-color: #d6d6d6;
+          color: black;
+          font-size: .8rem;
+          border-radius: unset;
+        }
+      }
+
+      display: flex;
+      align-items: center;
+      gap: 1rem;
     }
 
     .buttons {
@@ -34,7 +103,6 @@ header {
     }
 
     #CreateAccount {
-      margin-left: 0.833rem;
       @include services.GreenButton;
     }
   }

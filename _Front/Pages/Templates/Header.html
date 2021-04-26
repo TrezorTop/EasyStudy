@@ -14,14 +14,26 @@
             <nav>
                 <ul>
                     <li><a class="StandardButton buttons" href="/Social_Network_Python_Django/_Front/main.html">Home</a></li>
-                    <li><a class="StandardButton buttons" href="/Social_Network_Python_Django/_Front/Pages/Posts/Posts.html">Posts</a></li>
-                    <li><a class="StandardButton buttons" href="#">Videos</a></li>
-                    <li><a class="StandardButton buttons" href="#">JomSocial</a></li>
-                    <li><a class="StandardButton buttons" href="#">EasySocial</a></li>
-                    <li><a class="StandardButton buttons" href="#">Blogs</a></li>
+                    <li><a class="StandardButton buttons" href="/Social_Network_Python_Django/_Front/Pages/Posts/Posts.html">Board</a></li>
+                    <li><a class="StandardButton buttons" href="#">MyDocuments</a></li>
+                    <li><a class="StandardButton buttons" href="/Social_Network_Python_Django/_Front/Pages/MyProfile/MyProfile.html">MyProfile</a></li>
+                    <li>
+                        <div class="StandardButton buttons" id="Menu" href="#">
+                            Menu
+                            <div class="Card">
+                                <ul><a href="#">All Profiles</a></ul>
+                                <ul><a href="#">Friends</a></ul>
+                                <ul><a href="#">Received Invites</a></ul>
+                            </div>
+                        </div>
+                    </li>
                 </ul>
             </nav>
             <div class="controlPanel">
+                <form action="" id="Search">
+                    <input type="text" placeholder="Name of a user">
+                    <button type="submit">Search</button>
+                </form>
                 <a class="StandardButton buttons" href="#">Sign In</a>
                 <a id="CreateAccount" class="buttons" href="/Social_Network_Python_Django/_Front/Pages/CreateAccount.html">Create Account</a>
             </div>
@@ -29,5 +41,14 @@
 
         <hr>
     </header>
+
+    <script src="/Social_Network_Python_Django/_Front/node_modules/jquery/dist/jquery.js"></script>
+    <script>
+        $('#Menu').click(function() {
+            const selector = '#Menu>div';
+            $(selector).hasClass('visible') ? $(selector).removeClass('visible') : $(selector).addClass('visible');
+            console.log("test");
+        });
+    </script>
 </body>
 </html>
