@@ -44,17 +44,20 @@ class Profile(models.Model):
     slug = models.SlugField(unique=True, blank=True)
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
-
+    subscriptions = models.ManyToManyField("profiles.Profile", blank=True)
     objects = ProfileManager()
 
     def __str__(self):
-        return f"{self.user.username}"
+        return f"{self.user.username} - profile"
 
     def get_absolute_url(self):
         return reverse("profiles:profile_detail_view", kwargs={"slug": self.slug})
 
     def get_friends(self):
         return self.friends.all()
+
+    def get_subscriptions(self):
+        return self.subscriptions.all()
 
     def get_friends_no(self):
         return self.friends.all().count()

@@ -5,8 +5,13 @@
 {% endblock title %}
 
 {% block content %}
-    {{ hello }}
-    <br>
-    {{ user }}
+
+    {% for object in posts %}
+
+{#        {% include 'posts/post_card.html' %}#}
+        {{ object.author }}
+
+    {% endfor %}
+
 {% endblock content %}
 
