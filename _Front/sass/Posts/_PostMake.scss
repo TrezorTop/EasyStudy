@@ -8,17 +8,7 @@
     article {
       & > label:first-child {
         textarea {
-          width: 100%;
-          margin-top: 2%;
-          border-radius: services.$border-radius;
-          resize: vertical;
-          padding: 4% 2%;
-          transition: border services.$transition;
-
-          &:focus {
-            border: 1px solid services.$accent;
-            outline: none;
-          }
+          @include services.TextArea;
         }
       }
 
@@ -28,16 +18,7 @@
         }
 
         input {
-          border: 1px solid black;
-          border-radius: services.$border-radius;
-          padding: 3%;
-          font-size: .9rem;
-          width: 100%;
-
-          &:focus {
-            border: 1px solid services.$accent;
-            outline: none;
-          }
+          @include services.FileInput;
         }
       }
     }

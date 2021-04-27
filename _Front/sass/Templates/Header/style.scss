@@ -28,10 +28,6 @@ header {
           background-color: rgba(black, .2);
           position: relative;
 
-          .visible {
-            display: block !important;
-          }
-
           div {
             transition: display services.$transition;
             display: none;
@@ -67,25 +63,65 @@ header {
 
     .controlPanel {
       #Search {
-        display: flex;
-        border-radius: 5px;
-        overflow: hidden;
+        position: relative;
 
-        input {
-          @include services.Input;
-          padding: 4% 5%;
-          border: unset;
-          border-radius: unset;
+        .SearchInput {
+          display: flex;
+          position: relative;
+          border-radius: 5px;
+          overflow: hidden;
+
+          input {
+            @include services.Input;
+            padding: 4% 5%;
+            border: unset;
+            border-radius: unset;
+          }
+
+          button {
+            $color: #d6d6d6;
+
+            @include services.StandardButton;
+            padding: 4% 5%;
+            border: unset;
+            background-color: $color;
+            color: black;
+            font-size: .8rem;
+            border-radius: unset;
+
+            &:hover {
+              background-color: darken($color, 10%);
+            }
+          }
         }
 
-        button {
-          @include services.StandardButton;
-          padding: 4% 5%;
-          border: unset;
-          background-color: #d6d6d6;
-          color: black;
-          font-size: .8rem;
-          border-radius: unset;
+        .SearchResult {
+          transition: display services.$transition;
+          display: none;
+          position: absolute;
+          top: 100%;
+          margin-top: 1rem;
+          width: 100%;
+          padding: 1rem 0;
+          article {
+            display: flex;
+            justify-content: center;
+            padding: .5rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.10);
+            border-top: 1px solid rgba(0, 0, 0, 0.10);
+            .text {
+              h3 {
+                a {
+                  color: services.$accent;
+                  font-size: .9rem;
+                }
+              }
+              p {
+                margin-top: 1%;
+                font-size: .8rem;
+              }
+            }
+          }
         }
       }
 

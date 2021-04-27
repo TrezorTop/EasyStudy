@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/Social_Network_Python_Django/_Front/FontAwesome/webfonts/FontAwesome.min.css">
     <script src="/Social_Network_Python_Django/_Front/w3.js"></script>
 </head>
-<body>
+<body class="PossibleDarken">
     <div w3-include-html="/Social_Network_Python_Django/_Front/Pages/Templates/Header.html"></div>
 
     <main class="container FillScreen">
@@ -19,8 +19,8 @@
             <div>
                 <article class="Left">
                     <img src="/Social_Network_Python_Django/static_cdn/media_root/avatar.png" alt="avatar">
-                    <button>Update your profile</button>
-                    <a href="#">Change password</a>
+                    <button id="UpdateProfileBtn">Update your profile</button>
+                    <a href="ChangePassword.html">Change password</a>
                 </article>
                 <article class="Right">
                     <ul>
@@ -66,8 +66,83 @@
         </section>
     </main>
 
+    <!--  "visible" class, also give body "darken" class  -->
+    <section id="Modal" class="UpdateProfile">
+        <form action="">
+            <section class="Card form">
+                <i class="fas fa-times close" id="CloseModal"></i>
+                <h2>Update your Profile</h2>
+                <section class="data">
+                    <article class="Left">
+                        <img src="/Social_Network_Python_Django/static_cdn/media_root/avatar.png" alt="avatar">
+                    </article>
+                    <article class="Right">
+                        <h1>Provide some new info about you</h1>
+                        <article class="Input">
+                            <label for="FirstName">
+                                <p>First name:</p>
+                                <input type="text" id="FirstName">
+                            </label>
+                        </article>
+                        <article class="Input">
+                            <label for="LastName">
+                                <p>Last name:</p>
+                                <input type="text" id="LastName">
+                            </label>
+                        </article>
+                        <article class="Bio">
+                            <label for="Bio">
+                                <p>Bio:</p>
+                                <textarea name="" id="Bio">
+
+                        </textarea>
+                            </label>
+                        </article>
+                        <article class="Avatar">
+                            <p>Avatar currently: <a href="#">sex with python.jpg</a></p>
+                            <label for="Avatar">
+                                <p>Change:</p>
+                                <input type="file" id="Avatar">
+                            </label>
+                        </article>
+                    </article>
+                </section>
+                <article class="footer">
+                    <div class="button">
+                        <div><p>Update</p></div>
+                        <div><i class="fas fa-check"></i></div>
+                    </div>
+                </article>
+            </section>
+        </form>
+    </section>
+
+    <div w3-include-html="/Social_Network_Python_Django/_Front/Pages/Templates/Footer.html"></div>
     <script>
         w3.includeHTML();
+    </script>
+    <script src="/Social_Network_Python_Django/_Front/node_modules/jquery/dist/jquery.js"></script>
+    <script>
+        function OpenAndCloseModal() {
+            const selector = '#Modal';
+            const body = '.PossibleDarken';
+
+            if ($(selector).hasClass('visible'))
+            {
+                $(selector).fadeOut();
+                $(body).removeClass('darken');
+                $(selector).removeClass('visible');
+            }
+            else
+            {
+                $(selector).fadeIn();
+                $(body).addClass('darken');
+                $(selector).addClass('visible');
+            } // if
+        } // OpenAndCloseModal
+
+        $('#UpdateProfileBtn').click(OpenAndCloseModal);
+        $('#CloseModal').click(OpenAndCloseModal);
     </script>
 </body>
 </html>

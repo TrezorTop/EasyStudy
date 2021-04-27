@@ -105,10 +105,27 @@ main {
 
 .Card {
   background-color: white;
-  border-radius: 5px;
+  border-radius: 5px !important;
   -webkit-box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
   box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
   padding: 2%;
+}
+
+.visible {
+  display: block !important;
+}
+
+.darken {
+  position: relative;
+}
+.darken::after {
+  content: "";
+  background-color: rgba(0, 0, 0, 0.3);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
 }
 
 main {
@@ -213,10 +230,25 @@ main .checkbox label p {
 }
 main .Card {
   background-color: white;
-  border-radius: 5px;
+  border-radius: 5px !important;
   -webkit-box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
   box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
   padding: 2%;
+}
+main .visible {
+  display: block !important;
+}
+main .darken {
+  position: relative;
+}
+main .darken::after {
+  content: "";
+  background-color: rgba(0, 0, 0, 0.3);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
 }
 main .PostMake form {
   padding: 5%;
@@ -228,6 +260,7 @@ main .PostMake form article > label:first-child textarea {
   resize: vertical;
   padding: 4% 2%;
   transition: border 0.5s;
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 main .PostMake form article > label:first-child textarea:focus {
   border: 1px solid #4743D8;
@@ -237,15 +270,11 @@ main .PostMake form article > label:last-child p {
   margin: 5% 0 2%;
 }
 main .PostMake form article > label:last-child input {
-  border: 1px solid black;
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   padding: 3%;
   font-size: 0.9rem;
   width: 100%;
-}
-main .PostMake form article > label:last-child input:focus {
-  border: 1px solid #4743D8;
-  outline: none;
 }
 main .PostMake form button {
   font-size: 0.8rem;

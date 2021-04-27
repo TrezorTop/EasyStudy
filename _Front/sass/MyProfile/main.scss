@@ -1,4 +1,7 @@
 @use "../services/services";
+@import "UpdateProfile";
+
+
 
 main {
   section {
@@ -25,17 +28,9 @@ main {
         }
         button {
           margin-bottom: $margin;
-          @include services.StandardButton;
+          @include services.BlackButton;
           border: none;
-          $color: black;
-          background-color: $color;
           padding: 5%;
-          width: fit-content;
-          font-weight: bold;
-          font-size: .7rem;
-          &:hover {
-            background-color: lighten($color, 20%);
-          }
         }
         a {
           font-size: .9rem;
