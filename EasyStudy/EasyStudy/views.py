@@ -6,9 +6,6 @@ from posts.models import Post
 
 def home_view(request):
     user = request.user
-    profile = Profile.objects.get(user=user)
-    subscriptions = profile.get_subscriptions()
-
     context = {
         'posts': ''
     }
