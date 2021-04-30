@@ -52,6 +52,22 @@
                         </form>
                     {% endif %}
 
+                    <form action="{% url 'profiles:follow' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="profile_pk" value="{{ object.pk }}">
+                        {% if object.user not in subs %}
+                            <button type="submit" class="ui primary basic button mb-7 w-big"><i
+                                    class="plus square icon"></i>
+                                Follow
+                            </button>
+                        {% else %}
+                            <button type="submit" class="ui orange basic button mb-7 w-big"><i
+                                    class="plus square icon"></i>
+                                Unfollow
+                            </button>
+                        {% endif %}
+                    </form>
+
                     {% if object.user in relation_receiver and request.user not in object.friends.all %}
                         <button type="submit" class="ui disabled button mb-7 w-big"><i class="user icon"></i>
                             Waiting for approval

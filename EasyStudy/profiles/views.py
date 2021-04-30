@@ -159,6 +159,7 @@ class ProfileDetailView(LoginRequiredMixin, DetailView):
 
         relation_receiver_listed = []
         relation_sender_listed = []
+        subs_listed = []
 
         for item in relation_receiver:
             relation_receiver_listed.append(item.receiver.user)
@@ -166,6 +167,10 @@ class ProfileDetailView(LoginRequiredMixin, DetailView):
         for item in relation_sender:
             relation_sender_listed.append(item.sender.user)
 
+        for item in profile.get_subscriptions():
+            subs_listed.append(item.user)
+
+        context["subs"] = subs_listed
         context["relation_receiver"] = relation_receiver_listed
         context["relation_sender"] = relation_sender_listed
         context["posts"] = self.get_object().get_all_author_posts()
@@ -209,6 +214,21 @@ class ProfileListView(LoginRequiredMixin, ListView):
             context['is_empty'] = True
 
         return context
+
+
+@login_required
+def follow_profile(request):
+    if request.method == 'POST':
+        pk = request.POST.get('profile_pk')
+        profile = Profile.objects.get(user=request.user)
+        profile_to_follow = Profile.objects.get(pk=pk)
+        if profile_to_follow not in profile.get_subscriptions():
+            profile.subscriptions.add(profile_to_follow)
+        else:
+            profile.subscriptions.remove(profile_to_follow)
+        return redirect(request.META.get('HTTP_REFERER'))
+
+    return redirect('profiles:my_profile_view')
 
 
 @login_required

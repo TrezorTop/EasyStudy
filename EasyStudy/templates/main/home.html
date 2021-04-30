@@ -6,12 +6,57 @@
 
 {% block content %}
 
-    {% for object in posts %}
+    {% for object in query_set %}
 
-{#        {% include 'posts/post_card.html' %}#}
-        {{ object.author }}
+        {% include 'posts/post_card.html' %}
 
     {% endfor %}
 
 {% endblock content %}
+
+{% block scripts %}
+    <script>
+        $(document).ready(function () {
+            $(".comment_btn").click(function () {
+                $(this).next(".comment-box").toggle("normal");
+            });
+
+            $('.like-form').submit(function (event) {
+                event.preventDefault()
+
+                let postId = $(this).attr('id');
+                let isLiked = $(`.like-btn${postId}`).attr('data-is-liked')
+                let url = $(this).attr('action')
+                let likes = parseInt($(`.like-count${postId}`).text())
+
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: {
+                        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                        'post_id': postId,
+                    },
+                    success: function (response) {
+                        let likeButton = $(`.like-btn${postId}`)
+
+                        if (isLiked === 'true') {
+                            likeButton.text('Like');
+                            likeButton.attr('data-is-liked', 'false');
+                            $(`.like-count${postId}`).text(likes - 1);
+                        } else {
+                            likeButton.text('Unlike');
+                            likeButton.attr('data-is-liked', 'true');
+                            $(`.like-count${postId}`).text(likes + 1);
+                        }
+                    },
+                    error: function (response) {
+                        console.log('error', response)
+                    }
+                })
+
+            })
+        });
+    </script>
+
+{% endblock scripts %}
 
