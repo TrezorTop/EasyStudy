@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Invite friends
+{% endblock title %}
+
+{% block content %}
+    <ul>
+        {% for object in profiles %}
+            {% include 'profiles/profile_card.html' %}
+        {% endfor %}
+
+    </ul>
+{% endblock content %}

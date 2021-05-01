@@ -1,9 +1,9 @@
-from django.http import HttpResponse
-from django.shortcuts import render
-from profiles.models import Profile
-from posts.models import Post
-from posts.forms import CommentModelForm
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
+from django.shortcuts import render
+from posts.forms import CommentModelForm
+from posts.models import Post
+from profiles.models import Profile
 
 
 def home_view(request):
@@ -26,7 +26,9 @@ def post_comment_create_and_list_view(request):
     user = request.user
     if request.user.is_authenticated:
         profile = Profile.objects.get(user=request.user)
-        query_set = Post.objects.filter(author__in=profile.get_subscriptions())
+        friends = profile.get_friends()
+        query_set = Post.objects.filter(Q(author__in=profile.get_subscriptions()) | Q(
+            author__in=Profile.objects.filter(user__in=friends)))
 
         comment_form = CommentModelForm()
 

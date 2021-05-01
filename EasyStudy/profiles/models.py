@@ -1,9 +1,10 @@
-from django.db import models
-from django.shortcuts import reverse
 from django.contrib.auth.models import User
-from .utils import get_random_code
-from django.template.defaultfilters import slugify
+from django.db import models
 from django.db.models import Q
+from django.shortcuts import reverse
+from django.template.defaultfilters import slugify
+
+from .utils import get_random_code
 
 
 class ProfileManager(models.Manager):

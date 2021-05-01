@@ -1,15 +1,16 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from .models import Profile, Relationship
-from .forms import ProfileModelForm
-from django.views.generic import ListView, DetailView
-from django.contrib.auth.models import User
-from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
+from django.db.models import Q
 from django.http import JsonResponse, HttpResponseRedirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic import ListView, DetailView
 from documents.models import File
 from posts.forms import CommentModelForm
 from posts.models import Post
+
+from .forms import ProfileModelForm
+from .models import Profile, Relationship
 
 
 @login_required
@@ -75,12 +76,16 @@ def reject_invitation(request):
 
 @login_required
 def friend_list_view(request):
-    user = request.user
-    query_set = Profile.objects.get(user=user)
+    profile = Profile.objects.get(user=request.user)
+    query_set = profile.get_friends()
 
-    context = {'query_set': query_set}
+    profiles = Profile.objects.filter(user__in=profile.get_friends()).exclude(user=request.user)
 
-    return render(request, 'profiles/to_invite.html', context)
+    context = {
+        'profiles': profiles
+    }
+
+    return render(request, 'profiles/friends.html', context)
 
 
 @login_required
