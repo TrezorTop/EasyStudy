@@ -6,8 +6,10 @@ from django.contrib.auth.models import User
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from documents.models import File
+from posts.forms import CommentModelForm
+from posts.models import Post
 
 
 @login_required
@@ -142,6 +144,7 @@ def search_list_results(request):
 class ProfileDetailView(LoginRequiredMixin, DetailView):
     model = Profile
     template_name = 'profiles/detail.html'
+    comment_form = CommentModelForm
 
     def get_object(self, queryset=None):
         slug = self.kwargs.get('slug')
@@ -173,11 +176,24 @@ class ProfileDetailView(LoginRequiredMixin, DetailView):
         context["subs"] = subs_listed
         context["relation_receiver"] = relation_receiver_listed
         context["relation_sender"] = relation_sender_listed
+        context["comment_form"] = self.comment_form
         context["posts"] = self.get_object().get_all_author_posts()
         context["len_posts"] = True if len(self.get_object().get_all_author_posts()) > 0 else False
         context["files"] = files
 
         return context
+
+    def post(self, request, *args, **kwargs):
+        comment_form = self.comment_form(request.POST)
+        if comment_form.is_valid():
+            profile = Profile.objects.get(user=request.user)
+
+            instance = comment_form.save(commit=False)
+            instance.user = profile
+            instance.post = Post.objects.get(id=request.POST.get('post_id'))
+            instance.save()
+
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 class ProfileListView(LoginRequiredMixin, ListView):

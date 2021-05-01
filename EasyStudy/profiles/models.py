@@ -89,14 +89,10 @@ class Profile(models.Model):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.first_name = self.user.first_name
-        self.last_name = self.user.last_name
-        self.email = self.user.email
         self.slug = slugify(str(self.user.username))
 
         self.__initial_first_name = self.first_name
         self.__initial_last_name = self.last_name
-
         self.__initial_username = self.user.username
 
     def save(self, *args, **kwargs):

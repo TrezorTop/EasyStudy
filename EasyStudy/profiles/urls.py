@@ -8,6 +8,7 @@ from .views import (
     send_invitation,
     remove_from_friends,
     accept_invitation,
+    reject_invitation,
     search_results,
     search_list_results,
     follow_profile
@@ -26,5 +27,6 @@ urlpatterns = [
     path('search/', search_results, name='search'),
     path('search_list/', search_list_results, name='search_list_results'),
     path('my_invites/accept', accept_invitation, name='accept_invite'),
+    path('my_invites/reject', reject_invitation, name='reject_invite'),
     path('<slug>/', ProfileDetailView.as_view(), name='profile_detail_view'),
 ]

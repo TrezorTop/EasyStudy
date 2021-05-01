@@ -6,10 +6,13 @@ from .models import Profile, Relationship
 
 @receiver(post_save, sender=User)
 def post_save_create_profile(sender, instance, created, **kwargs):
-    print('sender', sender)
-    print('instance', instance)
     if created:
-        Profile.objects.create(user=instance)
+        profile = Profile.objects.create(user=instance, first_name=instance.first_name, last_name=instance.last_name,
+                                         email=instance.email)
+
+        profile.subscriptions.add(profile)
+        profile.friends.add(instance)
+        profile.save()
 
 
 @receiver(post_save, sender=Relationship)

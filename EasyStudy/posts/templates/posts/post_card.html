@@ -16,7 +16,8 @@
 
         </div>
         <img class="ui avatar image" src={{ object.author.avatar.url }}>
-        {{ object.author.user }} - {{ object.created|timesince }} ago
+        <a href="{% url 'profiles:profile_detail_view' object.author.slug %}">{{ object.author.user }}</a>
+        - {{ object.created|timesince }} ago
     </div>
     <div class="ui fluid image">
         {% if object.image %}
@@ -75,9 +76,16 @@
             {% csrf_token %}
             <input type="hidden" name="post_id" value={{ object.id }}>
             {{ comment_form }}
-            <button type="submit" name="submit_comment_form" class="ui primary button mt-5 w-full">
-                Send
-            </button>
+
+            {% if request.user in object.author.get_friends %}
+                <button type="submit" name="submit_comment_form" class="ui primary button mt-5 w-full">
+                    Send
+                </button>
+            {% else %}
+                <div class="ui disabled button mt-5 w-full">
+                    You must friend of this user
+                </div>
+            {% endif %}
             <div class="right floated mt-5">{{ object.created }}</div>
         </form>
     </div>
