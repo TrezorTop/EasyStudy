@@ -54,9 +54,6 @@
         <span> {{ object.num_comments }} comments</span>
     </div>
     <div class="extra content">
-        <div class="mb-5">
-
-        </div>
         <button class="comment_btn ui button mb-5">comments</button>
         <div class="comment-box">
             {% if object.comment_set.all %}
@@ -74,7 +71,7 @@
 
         <form action="" method="POST" class='ui fluid form'>
             {% csrf_token %}
-            <input type="hidden" name="post_id" value={{ object.id }}>
+            <input  type="hidden" name="post_id" value={{ object.id }}>
             {{ comment_form }}
 
             {% if request.user in object.author.get_friends %}
