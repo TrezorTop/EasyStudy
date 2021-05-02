@@ -58,36 +58,22 @@
           .Input {
             margin: 1rem 0;
 
-            label {
-              p {
-                margin-bottom: .5rem;
-              }
-
-              input {
-                @include services.Input;
-              }
-            }
-          }
-
-          .Bio {
-            label {
-              textarea {
-                @include services.TextArea;
-              }
-            }
-          }
-
-          .Avatar {
-            margin-top: 1rem;
-
             p {
               margin-bottom: .5rem;
             }
 
-            label {
-              input {
-                @include services.FileInput;
-              }
+            input {
+              @include services.Input;
+            }
+
+            textarea {
+              @include services.TextArea;
+              margin-top: 0;
+
+            }
+
+            input {
+              @include services.FileInput;
             }
           }
         }
@@ -100,23 +86,28 @@
         border-radius: inherit;
         display: flex;
         justify-content: flex-end;
-        .button {
+
+        button {
           @include services.GreenButton;
+          border: none;
           padding: 0;
           display: flex;
           align-items: center;
           overflow: hidden;
           $padding: .4rem;
           $darken: 3%;
+
           &:hover {
             i {
               background: linear-gradient(180deg, darken(rgba(6, 176, 109, 1), $darken) 0%, darken(rgba(6, 176, 109, 1), $darken) 100%);
             }
           }
+
           p {
             padding: $padding;
             padding-left: $padding + .8rem;
           }
+
           i {
             padding: $padding;
             font-weight: bold;

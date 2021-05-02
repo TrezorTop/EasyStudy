@@ -313,10 +313,10 @@ main {
 .UpdateProfile form .form .data .Right .Input {
   margin: 1rem 0;
 }
-.UpdateProfile form .form .data .Right .Input label p {
+.UpdateProfile form .form .data .Right .Input p {
   margin-bottom: 0.5rem;
 }
-.UpdateProfile form .form .data .Right .Input label input {
+.UpdateProfile form .form .data .Right .Input input {
   width: 100%;
   padding: 0.8rem;
   background-color: #F5F6F7;
@@ -325,11 +325,11 @@ main {
   font-size: 0.9rem;
   transition: border 0.3s;
 }
-.UpdateProfile form .form .data .Right .Input label input:focus {
+.UpdateProfile form .form .data .Right .Input input:focus {
   border-color: gray;
   outline: none;
 }
-.UpdateProfile form .form .data .Right .Bio label textarea {
+.UpdateProfile form .form .data .Right .Input textarea {
   width: 100%;
   margin-top: 2%;
   border-radius: 5px;
@@ -337,18 +337,13 @@ main {
   padding: 4% 2%;
   transition: border 0.5s;
   border: 1px solid rgba(0, 0, 0, 0.1);
+  margin-top: 0;
 }
-.UpdateProfile form .form .data .Right .Bio label textarea:focus {
+.UpdateProfile form .form .data .Right .Input textarea:focus {
   border: 1px solid #4743D8;
   outline: none;
 }
-.UpdateProfile form .form .data .Right .Avatar {
-  margin-top: 1rem;
-}
-.UpdateProfile form .form .data .Right .Avatar p {
-  margin-bottom: 0.5rem;
-}
-.UpdateProfile form .form .data .Right .Avatar label input {
+.UpdateProfile form .form .data .Right .Input input {
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   padding: 3%;
@@ -363,31 +358,32 @@ main {
   display: flex;
   justify-content: flex-end;
 }
-.UpdateProfile form .form .footer .button {
+.UpdateProfile form .form .footer button {
   font-size: 0.8rem;
   color: white;
   padding: 0.5rem 1.1rem;
   border-radius: 5px;
   background: #07c97c;
   background: linear-gradient(180deg, #07c97c 0%, #06b06d 100%);
+  border: none;
   padding: 0;
   display: flex;
   align-items: center;
   overflow: hidden;
 }
-.UpdateProfile form .form .footer .button:hover {
+.UpdateProfile form .form .footer button:hover {
   cursor: pointer;
   background: #07c97c;
   background: linear-gradient(180deg, #06b06d 0%, #06b06d 100%);
 }
-.UpdateProfile form .form .footer .button:hover i {
+.UpdateProfile form .form .footer button:hover i {
   background: linear-gradient(180deg, #05a164 0%, #05a164 100%);
 }
-.UpdateProfile form .form .footer .button p {
+.UpdateProfile form .form .footer button p {
   padding: 0.4rem;
   padding-left: 1.2rem;
 }
-.UpdateProfile form .form .footer .button i {
+.UpdateProfile form .form .footer button i {
   padding: 0.4rem;
   font-weight: bold;
   margin-left: 1rem;
