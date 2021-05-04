@@ -1,0 +1,82 @@
+@use "../services/services";
+
+main {
+  .Form {
+    form {
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      .Flexible {
+        display: flex;
+        flex-direction: column;
+        justify-items: center;
+        gap: 1rem;
+      }
+
+      .Info {
+
+      }
+
+      Input {
+        margin: 2rem 0;
+
+        label {
+          p {
+            margin-bottom: .6rem;
+          }
+
+          input {
+            @include services.Input;
+          }
+        }
+      }
+
+      .Footer {
+        .WithButton {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+
+          button {
+            border: none;
+            padding: .8rem 1.1rem;
+          }
+
+          .StandardButton {
+            @include services.StandardButton;
+            $color: #d6d6d6;
+
+            background-color: $color;
+            color: black;
+            font-size: .8rem;
+
+            &:hover {
+              background-color: darken($color, 10%);
+            }
+          }
+
+          .GreenButton {
+            @include services.GreenButton;
+          }
+
+          .RedButton {
+            @include services.RedButton;
+          }
+
+          .AccentButton {
+            @include services.AccentButton;
+          }
+
+          .BlackButton {
+            @include services.BlackButton;
+          }
+        }
+
+        a, p {
+          font-size: .8rem;
+        }
+      }
+    }
+  }
+}

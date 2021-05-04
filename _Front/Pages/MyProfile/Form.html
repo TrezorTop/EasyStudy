@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/Social_Network_Python_Django/_Front/node_modules/normalize.css/normalize.css">
+    <link rel="stylesheet" href="/Social_Network_Python_Django/_Front/sass/Templates/Footer/style.css">
+    <link rel="stylesheet" href="/Social_Network_Python_Django/_Front/sass/Templates/Header/style.css">
+    <link rel="stylesheet" href="/Social_Network_Python_Django/_Front/sass/MyProfile/Form.css">
+    <link rel="stylesheet" href="/Social_Network_Python_Django/_Front/FontAwesome/webfonts/FontAwesome.min.css">
+</head>
+<body class="PossibleDarken">
+
+    <main class="container FillScreen">
+        <section class="Form">
+            <form method="POST" action="{% url 'account_reset_password' %}" class="Card">
+                {% csrf_token %}
+                <h1>{% trans "Password Reset" %}</h1>
+                <article class="Info Flexible">
+                    {% if user.is_authenticated %}
+                    {% include "account/snippets/already_logged_in.html" %}
+                    {% endif %}
+                    <p>{% trans "Forgotten your password? Enter your e-mail address below, and we'll send you an e-mail
+                        allowing you to reset it." %}</p>
+                </article>
+                {% for field in form %}
+                <article class="Input Flexible">
+                    {% for error in field.errors %}
+                    <p>{{ error }}</p>
+                    {% endfor %}
+                    <label>
+                        <p>{{ field.label }}:</p>
+                        {{ field }}
+                    </label>
+                </article>
+                {% endfor %}
+                <article class="Footer Flexible">
+                    <div class="WithButton">
+                        <button class="StandardButton" type="submit">{% trans 'Reset My Password' %}</button>
+                    </div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores blanditiis commodi culpa
+                        fuga magnam nihil rem. A aut corporis cumque cupiditate debitis dicta eaque earum eos error fuga
+                        illo itaque molestiae nam, necessitatibus nihil nisi nostrum odio optio perferendis provident
+                        quaerat quod repellendus rerum sequi sunt totam veritatis vero.}</p>
+                </article>
+            </form>
+        </section>
+    </main>
+
+</body>
+</html>
