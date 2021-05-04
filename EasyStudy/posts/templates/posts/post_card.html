@@ -71,9 +71,8 @@
 
         <form action="" method="POST" class='ui fluid form'>
             {% csrf_token %}
-            <input  type="hidden" name="post_id" value={{ object.id }}>
+            <input type="hidden" name="post_id" value={{ object.id }}>
             {{ comment_form }}
-
             {% if request.user in object.author.get_friends %}
                 <button type="submit" name="submit_comment_form" class="ui primary button mt-5 w-full">
                     Send
